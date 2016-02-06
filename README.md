@@ -1,2 +1,2 @@
-# api-library-php
+# brein-api-library-php
 Libraries to access the Breinify-API using PHP
