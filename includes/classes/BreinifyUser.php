@@ -1,4 +1,5 @@
 <?php
+namespace Breinify\API\PHP;
 
 class BreinifyUser {
 
@@ -11,5 +12,14 @@ class BreinifyUser {
     private $sessionId;
 
     public function toActivityUser() {
+        return [
+            'email'       => $this->email,
+            'firstName'   => $this->firstName,
+            'lastName'    => $this->lastName,
+            'dateOfBirth' => $this->dateOfBirth,
+            'imei'        => $this->imei,
+            'deviceId'    => $this->deviceId,
+            'sessionId'   => $this->sessionId
+        ];
     }
 }

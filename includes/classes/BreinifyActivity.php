@@ -1,4 +1,5 @@
 <?php
+namespace Breinify\API\PHP;
 
 class BreinifyActivity {
 
@@ -15,9 +16,9 @@ class BreinifyActivity {
     public function setUser($user) {
         $sessionId = empty(session_id()) ? null : session_id();
 
-        if (get_class($user) == 'BreinifyUser') {
+        if (get_class($user) === '\Breinify\API\PHP\BreinifyUser') {
             $this->user = $user->toActivityUser();
-        } else if (get_class($user) == 'WP_User') {
+        } else if (get_class($user) === '\WP_User') {
             $this->user = [
                 'email'     => $user->user_email,
                 'firstName' => $user->user_firstname,
@@ -27,7 +28,7 @@ class BreinifyActivity {
         } else if (is_array($user)) {
             $this->user = $user;
         } else {
-            throw new Exception('Invalid user type: ' . $user);
+            throw new \Exception('Invalid user type: ' . $user);
         }
     }
 
@@ -49,25 +50,6 @@ class BreinifyActivity {
             'description' => $description,
             'tags'        => (is_array($tags) ? implode(',', $tags) : $tags)
         ]);
-    }
-
-    /**
-     * @param $settings BreinifySettings the settings to be applied
-     */
-    public function applySettings($settings) {
-
-        // set the user
-        $this->setUser($settings->getCurrentUser());
-
-        // set the apiKey
-        $this->setApiKey($settings->getApiKey());
-
-        // set the secret
-        if ($settings->isServerCommunicationType()) {
-            $this->setSecret($settings->getSecret());
-        } else {
-            $this->setSecret(null);
-        }
     }
 
     public function setApiKey($apiKey) {
