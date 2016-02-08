@@ -26,9 +26,7 @@ $activity.setType("login");
 ## A more detailed introduction
 
 ### Requirements
-This library is used to integrate the Brein Engine (more specific, the API's end-points: activity and lookup) into a given PHP based web-platform. The documentation requires:
-* at least PHP 5 or larger,
-* ...
+This library is used to integrate the Brein Engine (more specific, the API's end-points: activity and lookup) into a given PHP based web-platform. The documentation requires PHP 5 or higher.
 
 ### Communicating with the Brein Engine
 The communication with the Brein Engine can be performed from back-end side, i.e.,:
@@ -49,7 +47,7 @@ If the communication between the back-end and the Brein Engine is performed with
       ; Whether to allow the treatment of URLs (like http:// or ftp://) as files.
       ; http://php.net/allow-url-fopen
       allow_url_fopen = On
-    ```
+  ```
 * POST calls to the Brein Engine must not be blocked by the firewall (i.e., outgoing traffic should be possible)
 
 ### Using back-end calls utilizing cURL
@@ -64,4 +62,3 @@ If the communication between the back-end and the Brein Engine is performed usin
    [PHP file get contents documentation]: <http://php.net/manual/en/function.file-get-contents.php>
    [PHP stream context documentation]: <http://php.net/manual/en/function.stream-context-create.php>
    [Breinify.com]: <http://www.breinify.com>
-
