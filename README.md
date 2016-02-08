@@ -44,11 +44,9 @@ If the communication between the back-end and the Brein Engine is performed with
 * POST calls to the Brein Engine must not be blocked by the firewall (i.e., outgoing traffic should be possible)
 * the functions *stream_context_create* and *file_get_contents* must be available (which is the case by default since PHP 4.3.0, cf.: [PHP stream context documentation], [PHP file get contents documentation]),
 * the ini-parameter *allow_url_fopen* must be set to ON in the *php.ini* (which is the default setting, cf.: [PHP file system documentation]), and
-* ```
-      ; Whether to allow the treatment of URLs (like http:// or ftp://) as files.
+*     ; Whether to allow the treatment of URLs (like http:// or ftp://) as files.
       ; http://php.net/allow-url-fopen
       allow_url_fopen = On
-```
 
 ### Using back-end calls utilizing cURL
 If the communication between the back-end and the Brein Engine is performed using cURL the back-end must fulfill the following requirements:
@@ -62,3 +60,4 @@ If the communication between the back-end and the Brein Engine is performed usin
    [PHP file get contents documentation]: <http://php.net/manual/en/function.file-get-contents.php>
    [PHP stream context documentation]: <http://php.net/manual/en/function.stream-context-create.php>
    [Breinify.com]: <http://www.breinify.com>
+
