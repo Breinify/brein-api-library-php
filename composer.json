@@ -1,5 +1,5 @@
 {
-  "name": "breinify-api-library-php",
+  "name": "Breinify/BreinEngine-API",
   "description": "A PHP library to exchange data through the API of the Brein Engine.",
   "keywords": [
     "breinify",
@@ -11,11 +11,13 @@
   "authors": [
     {
       "name": "Philipp Meisen",
-      "email": "philipp.meisen@breinify.com"
+      "email": "philipp.meisen@breinify.com",
+      "homepage": "http://www.breinify.com"
     },
     {
       "name": "Diane Keng",
-      "email": "diane.keng@breinify.com"
+      "email": "diane.keng@breinify.com",
+      "homepage": "http://www.breinify.com"
     }
   ],
   "require": {
