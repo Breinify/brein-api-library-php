@@ -2,7 +2,7 @@
     <testsuites>
         <testsuite name="BreinApiTestSuite">
             <directory>.</directory>
-            <directory>classes</directory>
+            <directory>libraries</directory>
         </testsuite>
     </testsuites>
 </phpunit>
