@@ -1,5 +1,5 @@
 {
-  "name": "Breinify/BreinEngine-API",
+  "name": "breinify/brein-engine-api",
   "description": "A PHP library to exchange data through the API of the Brein Engine.",
   "keywords": [
     "breinify",
