@@ -1,5 +1,5 @@
 <?php
-namespace Breinify\API\classes;
+namespace Breinify\API;
 
 class BreinUser {
 

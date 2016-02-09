@@ -1,5 +1,5 @@
 <?php
-namespace Breinify\API\classes;
+namespace Breinify\API;
 
 use Breinify\API\libraries\BreinUtil;
 
@@ -18,7 +18,7 @@ class BreinActivity {
     public function setUser($user) {
         $sessionId = empty(session_id()) ? null : session_id();
 
-        if (get_class($user) === 'Breinify\API\classes\BreinUser') {
+        if (get_class($user) === 'Breinify\API\BreinUser') {
             /** @noinspection PhpUndefinedMethodInspection */
             $this->user = $user->data();
         } else if (get_class($user) === 'WP_User') {

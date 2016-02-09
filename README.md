@@ -8,19 +8,17 @@ First of all, you have to have a valid api-Key (create an account and get your p
 To communicate with the Brein Engine utilizing the provided PHP library is as easy as this:
 
 ```php
-require_once("lib-brein-engine.php");
-
-$user = new \Breinify\API\PHP\BreinUser();
+$user = new \Breinify\API\BreinUser();
 $user.setFirstName("Diane");
 $user.setLastName("Keng");
 $user.setEmail("diane.keng@breinify.com");
 
-$activity = new \Breinify\API\PHP\BreinActivity();
+$activity = new \Breinify\API\BreinActivity();
 $activity.setApiKey("772A-47D7-93A3-4EA9-9D73-85B9-479B-16C6");
 $activity.setUser($user);
 $activity.setType("login");
 
-\Breinify\API\PHP\BreinEngine::sendActivity($activity);
+\Breinify\API\BreinEngine::sendActivity($activity);
 ```
 
 ## A more detailed introduction

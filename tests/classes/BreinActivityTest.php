@@ -1,7 +1,7 @@
 <?php
 
-use Breinify\API\classes\BreinActivity;
-use Breinify\API\classes\BreinUser;
+use Breinify\API\BreinActivity;
+use Breinify\API\BreinUser;
 
 class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
