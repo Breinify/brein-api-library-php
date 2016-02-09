@@ -1,0 +1,16 @@
+# Libraries          #
+######################
+vendor/**/*
+
+# Targets            #
+######################
+
+
+# Configurations     #
+######################
+
+
+# OS generated files #
+######################
+*/.DS_Store
+*/.DS_Store?
