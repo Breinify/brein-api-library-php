@@ -1,7 +1,8 @@
-<phpunit bootstrap="src/autoload.php">
+<phpunit bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="money">
-            <directory>tests</directory>
+        <testsuite name="BreinApiTestSuite">
+            <directory>.</directory>
+            <directory>classes</directory>
         </testsuite>
     </testsuites>
 </phpunit>

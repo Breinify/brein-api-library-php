@@ -1,0 +1,32 @@
+{
+  "name": "breinify-api-library-php",
+  "description": "A PHP library to exchange data through the API of the Brein Engine.",
+  "keywords": [
+    "breinify",
+    "brein engine",
+    "collective intelligence"
+  ],
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Philipp Meisen",
+      "email": "philipp.meisen@breinify.com"
+    },
+    {
+      "name": "Diane Keng",
+      "email": "diane.keng@breinify.com"
+    }
+  ],
+  "require": {
+    "php": "^5.0 || ^7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": ">=4.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "Breinify\\API\\": "src"
+    }
+  }
+}

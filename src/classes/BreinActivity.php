@@ -1,7 +1,9 @@
 <?php
-namespace Breinify\API\PHP;
+namespace Breinify\API\classes;
 
-class BreinifyActivity {
+use Breinify\API\libraries\BreinUtil;
+
+class BreinActivity {
 
     private $apiKey = null;
     private $secret = null;
@@ -16,9 +18,10 @@ class BreinifyActivity {
     public function setUser($user) {
         $sessionId = empty(session_id()) ? null : session_id();
 
-        if (get_class($user) === '\Breinify\API\PHP\BreinifyUser') {
-            $this->user = $user->toActivityUser();
-        } else if (get_class($user) === '\WP_User') {
+        if (get_class($user) === 'Breinify\API\classes\BreinUser') {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $this->user = $user->data();
+        } else if (get_class($user) === 'WP_User') {
             $this->user = [
                 'email'     => $user->user_email,
                 'firstName' => $user->user_firstname,
@@ -26,7 +29,7 @@ class BreinifyActivity {
                 'sessionId' => $sessionId
             ];
         } else if (is_array($user)) {
-            $this->user = $user;
+            $this->user = BreinUtil::filterArray($user, BreinUser::$validAttributes);
         } else {
             throw new \Exception('Invalid user type: ' . $user);
         }
@@ -50,6 +53,14 @@ class BreinifyActivity {
             'description' => $description,
             'tags'        => (is_array($tags) ? implode(',', $tags) : $tags)
         ]);
+    }
+
+    public function getUser() {
+        return $this->user;
+    }
+
+    public function getActivities() {
+        return $this->activities;
     }
 
     public function setApiKey($apiKey) {
@@ -107,7 +118,7 @@ class BreinifyActivity {
         !empty($this->user) && is_array($this->user) && count($this->user) > 0;
     }
 
-    private function createSignature() {
+    public function createSignature() {
         if (empty($this->secret)) {
             return null;
         } else {
