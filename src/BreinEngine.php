@@ -8,11 +8,11 @@ class BreinEngine {
     private static $validTypes = ["curl" => "doCurl", "stream" => "doFileGetContents"];
 
     public static function sendActivity($activity) {
-        return BreinEngine::execute(BreinEngine::$baseUrl . "activity", $activity);
+        return BreinEngine::execute(BreinEngine::$baseUrl . "/activity", $activity);
     }
 
     public static function performLookUp($lookUp) {
-        return BreinEngine::execute(BreinEngine::$baseUrl . "lookup", $lookUp);
+        return BreinEngine::execute(BreinEngine::$baseUrl . "/lookup", $lookUp);
     }
 
     public static function setType($type) {
