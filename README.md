@@ -54,5 +54,5 @@ If the communication between the back-end and the Brein Engine is performed usin
    [PHP file system documentation]: <http://php.net/manual/en/filesystem.configuration.php>
    [PHP file get contents documentation]: <http://php.net/manual/en/function.file-get-contents.php>
    [PHP stream context documentation]: <http://php.net/manual/en/function.stream-context-create.php>
-   [Breinify.com]: <http://www.breinify.com>
+   [Breinify.com]: <https://www.breinify.com>
 
