@@ -24,7 +24,7 @@ $activity.setType("login");
 ## A more detailed introduction
 
 ### Requirements
-This library is used to integrate the Brein Engine (more specific, the API's end-points: activity and lookup) into a given PHP based web-platform. The documentation requires PHP 5 or higher.
+This library is used to integrate the Brein Engine (more specific, the API's end-points: activity and lookup) into a given PHP based web-platform. The library requires PHP 5 or higher.
 
 ### Communicating with the Brein Engine
 The communication with the Brein Engine can be performed from back-end side, i.e.,:
