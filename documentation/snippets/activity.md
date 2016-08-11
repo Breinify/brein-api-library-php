@@ -5,4 +5,4 @@ $activity.setUser($user);
 $activity.setType("login");
 
 \Breinify\API\BreinEngine::sendActivity($activity);
-``
+```
