@@ -1,3 +1,11 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Breinify/brein-api-library-php/master/documentation/img/logo.png" alt="Breinify API PHP Library" width="250">
+</p>
+
+<p align="center">
+Breinify's DigitalDNA API puts dynamic behavior-based, people-driven data right at your fingertips.
+</p>
+
 # brein-api-library-php
 
 ## A quick start
@@ -48,11 +56,13 @@ If the communication between the back-end and the Brein Engine is performed usin
 * POST calls to the Brein Engine must not be blocked by the firewall (i.e., outgoing traffic should be possible), and
 * the [cURL] module must be available, i.e., the functions *curl_init*, *curl_setopt*, *curl_exec*, *curl_getinfo*, and *curl_close* must be available.
 
-
 [//]: # (reference links)
    [cURL]: <http://php.net/manual/en/book.curl.php>
    [PHP file system documentation]: <http://php.net/manual/en/filesystem.configuration.php>
    [PHP file get contents documentation]: <http://php.net/manual/en/function.file-get-contents.php>
    [PHP stream context documentation]: <http://php.net/manual/en/function.stream-context-create.php>
    [Breinify.com]: <https://www.breinify.com>
+   
+## IDE Configuration
+Further information regarding the configuration of the IDE can be found [here](./documentation/devenv.md).
 
