@@ -8,6 +8,9 @@ Breinify's DigitalDNA API puts dynamic behavior-based, people-driven data right 
 
 ## Setting up IntelliJ as IDE
 
+This documentation shows some configuration settings regarding IntelliJ. The documentation assumes that the files from
+GitHub are located in `/Development/breinify`
+
 ### Setup PHP
 
 The IDE should always use the version installed in `/insts/php`. This is more complicated then it may be assumed. 
