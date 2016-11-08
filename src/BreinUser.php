@@ -16,6 +16,7 @@ class BreinUser {
     private $imei = null;
     private $deviceId = null;
     private $sessionId = null;
+    private $user_additional = null;
 
     public function data() {
         return [
@@ -25,7 +26,8 @@ class BreinUser {
             'dateOfBirth' => $this->dateOfBirth,
             'imei'        => $this->imei,
             'deviceId'    => $this->deviceId,
-            'sessionId'   => $this->sessionId
+            'sessionId'   => $this->sessionId,
+            'additional'  => $this->user_additional
         ];
     }
 
@@ -129,5 +131,21 @@ class BreinUser {
      */
     public function setSessionId($sessionId) {
         $this->sessionId = $sessionId;
+    }
+
+    /**
+     * @return null
+     */
+    public function getUserAdditional() {
+        return $this->user_additional;
+    }
+
+    /**
+     * @param null $user_additional
+     */
+    public function setUserAdditional($user_additional) {
+        // error_log("user additional is: ");
+        // error_log(print_r($user_additional->data(),1));
+        $this->user_additional = $user_additional;
     }
 }

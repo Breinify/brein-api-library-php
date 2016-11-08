@@ -3,12 +3,17 @@
 namespace Breinify\API;
 
 class BreinEngine {
+
     private static $baseUrl = "https://api.breinify.com";
     private static $type = null;
     private static $validTypes = ["curl" => "doCurl", "stream" => "doFileGetContents"];
 
     public static function sendActivity($activity) {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/activity", $activity->data());
+    }
+
+    public static function temporalData($temporalData) {
+        return BreinEngine::execute(BreinEngine::$baseUrl . "/temporaldata", $temporalData->data());
     }
 
     public static function performLookUp($lookUp) {

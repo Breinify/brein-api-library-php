@@ -10,6 +10,7 @@ class BreinActivity {
     private $unixTimestamp = null;
     private $user = null;
     private $activities = [];
+    private $ipAddress = null;
 
     public function __construct() {
         $this->setUnixTimestamp(null);
@@ -23,10 +24,14 @@ class BreinActivity {
             $this->user = $user->data();
         } else if (get_class($user) === 'WP_User') {
             $this->user = [
-                'email'     => $user->user_email,
-                'firstName' => $user->user_firstname,
-                'lastName'  => $user->user_lastname,
-                'sessionId' => $sessionId
+                'email'        => $user->user_email,
+                'firstName'    => $user->user_firstname,
+                'lastName'     => $user->user_lastname,
+                'dateOfBirth'  => $user->user_dateOfBirth,
+                'deviceId'     => $user->user_deviceId,
+                'imei'         => $user->user_imei,
+                'sessionId'    => $sessionId,
+                'signature'    => $this->createSignature()
             ];
         } else if (is_array($user)) {
             $this->user = BreinUtil::filterArray($user, BreinUser::$validAttributes);
@@ -34,6 +39,7 @@ class BreinActivity {
             throw new \Exception('Invalid user type: ' . $user);
         }
     }
+
 
     public function setUnixTimestamp($unixTimestamp) {
         $this->unixTimestamp = $unixTimestamp == null ? time() : $unixTimestamp;
@@ -44,12 +50,14 @@ class BreinActivity {
      *
      * @param $type
      * @param null $description the description of the activity
+     * @param null $category the category of the activity
      * @param null $tags comma-separated list of tags
      * @return array $activity an array containing the activity to be added
      */
-    public function addActivity($type, $description = null, $tags = null) {
+    public function addActivity($type, $category = null, $description = null, $tags = null) {
         array_push($this->activities, [
             'type'        => $type,
+            'category'    => $category,
             'description' => $description,
             'tags'        => (is_array($tags) ? implode(',', $tags) : $tags)
         ]);
@@ -79,12 +87,27 @@ class BreinActivity {
         $this->secret = $secret;
     }
 
+    /**
+     * @return null
+     */
+    public function getIpAddress() {
+        return $this->ipAddress;
+    }
+
+    /**
+     * @param null $ipAddress
+     */
+    public function setIpAddress($ipAddress) {
+        $this->ipAddress = $ipAddress;
+    }
+
     public function data() {
         return [
             'user'          => $this->user,
             'activities'    => $this->activities,
             'apiKey'        => $this->apiKey,
-            'unixTimestamp' => $this->unixTimestamp
+            'unixTimestamp' => $this->unixTimestamp,
+            'ipAddress'     => (empty($ipAddress) ? '' : $ipAddress)
         ];
     }
 
