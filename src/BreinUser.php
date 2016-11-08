@@ -144,8 +144,8 @@ class BreinUser {
      * @param null $user_additional
      */
     public function setUserAdditional($user_additional) {
-        // error_log("user additional is: ");
-        // error_log(print_r($user_additional->data(),1));
+        error_log("user additional is: ");
+        error_log(print_r($user_additional->data(),1));
         $this->user_additional = $user_additional;
     }
 }
