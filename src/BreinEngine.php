@@ -69,16 +69,20 @@ class BreinEngine {
     private static function doCurl($url, $data) {
         error_log("within doCurl");
 
+        $data_string = json_encode($data);
+        error_log("json_encode is: ");
+        error_log($data_string);
+
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, ["Content-type: application/json"]);
         curl_setopt($curl, CURLOPT_POST, true);
-
-        // curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-
-        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query(array(json_encode($data))));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string))
+        );
 
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 

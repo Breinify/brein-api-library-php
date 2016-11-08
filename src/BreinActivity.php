@@ -84,8 +84,7 @@ class BreinActivity {
             'user'          => $this->user,
             'activities'    => $this->activities,
             'apiKey'        => $this->apiKey,
-            'unixTimestamp' => $this->unixTimestamp,
-            'signature'     => $this->createSignature()
+            'unixTimestamp' => $this->unixTimestamp
         ];
     }
 
