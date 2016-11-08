@@ -3,7 +3,7 @@
 namespace Breinify\API;
 
 class BreinEngine {
-    private static $baseUrl = "http://api.breinify.com";
+    private static $baseUrl = "https://api.breinify.com";
     private static $type = null;
     private static $validTypes = ["curl" => "doCurl", "stream" => "doFileGetContents"];
 
