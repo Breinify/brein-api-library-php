@@ -8,7 +8,7 @@ class BreinEngine {
     private static $validTypes = ["curl" => "doCurl", "stream" => "doFileGetContents"];
 
     public static function sendActivity($activity) {
-        return BreinEngine::execute(BreinEngine::$baseUrl . "/activity", $activity);
+        return BreinEngine::execute(BreinEngine::$baseUrl . "/activity", $activity->data());
     }
 
     public static function performLookUp($lookUp) {
@@ -42,7 +42,7 @@ class BreinEngine {
                 throw new \Exception("Unable to find any valid method to communicate with the BreinEngine.");
             }
         } else {
-            return BreinEngine::$type;
+            return BreinEngine::$validTypes[BreinEngine::$type];
         }
     }
 
@@ -67,16 +67,26 @@ class BreinEngine {
      * @return array the received information as associative array with 'status' (status-code of the response) and 'response' (the actual payload)
      */
     private static function doCurl($url, $data) {
+        error_log("within doCurl");
+
         $curl = curl_init($url);
 
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, ["Content-type: application/json"]);
         curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+
+        // curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query(array(json_encode($data))));
+
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
         $response = json_decode(curl_exec($curl), true);
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        error_log("HTTP-Status is: ");
+        error_log($status);
 
         curl_close($curl);
 

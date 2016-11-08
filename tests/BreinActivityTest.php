@@ -2,6 +2,7 @@
 
 use Breinify\API\BreinActivity;
 use Breinify\API\BreinUser;
+use Breinify\API\BreinEngine;
 
 class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
@@ -115,4 +116,33 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("rsXU0ozhfzieNLA2jQs2h2e4sz2+qHGxbgSYyfWr5EM=",
             $activity->createSignature());
     }
+
+    /**
+     *
+     */
+    public function testLoginRequest()
+    {
+
+        $activity = new BreinActivity();
+        $user = new BreinUser();
+        $engine = new BreinEngine();
+
+        $user->setFirstName("Toni");
+        $user->setLastName("Maroni");
+        $user->setImei("990000862471854");
+        $user->setDeviceId("9XXXX862YUJK19");
+        $user->setSessionId("Rg3vHJZnehYLjVg7qi3bZjzg");
+        $user->setEmail("toni@maroni.net");
+
+        $activity->setUser($user);
+        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->addActivity("login", "message of blub", null);
+        $output = print_r($activity->data(),1);
+        error_log($output);
+
+        $engine->setType("curl");
+
+        $engine->sendActivity($activity);
+    }
+
 }
