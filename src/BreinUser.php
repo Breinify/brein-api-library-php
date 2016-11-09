@@ -1,6 +1,8 @@
 <?php
 namespace Breinify\API;
 
+use Breinify\API\BreinUserAdditional;
+
 class BreinUser {
 
     public static $validAttributes = [
@@ -16,7 +18,7 @@ class BreinUser {
     private $imei = null;
     private $deviceId = null;
     private $sessionId = null;
-    private $user_additional = null;
+    private $user_additional; //  =  BreinUserAdditional();
 
     public function data() {
         return [
@@ -141,9 +143,9 @@ class BreinUser {
     }
 
     /**
-     * @param null $user_additional
+     * @param \Breinify\API\BreinUserAdditional $user_additional
      */
-    public function setUserAdditional($user_additional) {
+    public function setUserAdditional(BreinUserAdditional $user_additional) {
         error_log("user additional is: ");
         error_log(print_r($user_additional->data(),1));
         $this->user_additional = $user_additional;

@@ -81,7 +81,8 @@ class BreinTemporalData {
             'user'          => $this->user,
             'apiKey'        => $this->apiKey,
             'unixTimestamp' => $this->unixTimestamp,
-            'ipAddress'     => (empty($ipAddress) ? '' : $ipAddress)
+            'ipAddress'     => (empty($ipAddress) ? '' : $ipAddress),
+            'signature'     => $this->createSignature()
         ];
     }
 
@@ -125,18 +126,18 @@ class BreinTemporalData {
 
     public function createSignature() {
 
-        // TODO
-
         if (empty($this->secret)) {
             return null;
         } else {
-            $activityLength = count($this->activities);
-            $activity = count($this->activities) === 0 ? null : $this->activities[0];
 
-            $message = sprintf("%s%d%d",
-                empty($activity['type']) ? '' : $activity['type'],
-                $this->unixTimestamp,
-                $activityLength);
+            $localDateTime = $this->getUser()->getUserAdditional().getLocalDateTime();
+            $paraLocalDateTime = $localDateTime == null ? "" : $localDateTime;
+
+            $timeZone = $this->getUser()->getUserAdditional().getTimezone();
+            $paraTimezone = $timeZone == null ? "" : $timeZone;
+
+            $message = sprintf("%d-%s-%s",
+                $this->unixTimestamp, $paraLocalDateTime, $paraTimezone);
 
             return base64_encode(hash_hmac('sha256', $message, $this->secret, true));
         }
