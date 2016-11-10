@@ -17,19 +17,10 @@ class BreinTemporalData {
     }
 
     public function setUser($user) {
-        $sessionId = empty(session_id()) ? null : session_id();
 
         if (get_class($user) === 'Breinify\API\BreinUser') {
             /** @noinspection PhpUndefinedMethodInspection */
             $this->user = $user->data();
-        } else if (get_class($user) === 'WP_User') {
-            $this->user = [
-                'email'     => $user->user_email,
-                'firstName' => $user->user_firstname,
-                'lastName'  => $user->user_lastname,
-                'sessionId' => $sessionId,
-                'signature' => $this->createSignature()
-            ];
         } else if (is_array($user)) {
             $this->user = BreinUtil::filterArray($user, BreinUser::$validAttributes);
         } else {
@@ -44,7 +35,6 @@ class BreinTemporalData {
     public function getUser() {
         return $this->user;
     }
-
 
     public function setApiKey($apiKey) {
         $this->apiKey = $apiKey;
@@ -86,27 +76,6 @@ class BreinTemporalData {
         ];
     }
 
-    /*
-    public function setData($data) {
-
-        // validate the data first
-        if (is_array($data) &&
-            (!empty($data['activities']) || !empty($data['activity'])) &&
-            !empty($data['apiKey']) &&
-            !empty($data['user'])
-        ) {
-            $this->user = $data['user'];
-            $this->activities = (!empty($data['activities']) ? $data['activities'] : [$data['activity']]);
-            $this->apiKey = $data['apiKey'];
-            $this->unixTimestamp = empty($data['unixTimestamp']) ? $this->unixTimestamp : $data['unixTimestamp'];
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-    */
-
     public function json() {
         return json_encode($this->data());
     }
@@ -116,24 +85,30 @@ class BreinTemporalData {
         !empty($this->user) && is_array($this->user) && count($this->user) > 0;
     }
 
-    /*
-    public function isValid() {
-        return !empty($this->apiKey) &&
-        !empty($this->activities) && is_array($this->activities) && count($this->activities) > 0 &&
-        !empty($this->user) && is_array($this->user) && count($this->user) > 0;
-    }
-    */
-
+    /**
+     * @return null|string
+     */
     public function createSignature() {
 
         if (empty($this->secret)) {
             return null;
         } else {
 
-            $localDateTime = $this->getUser()->getUserAdditional().getLocalDateTime();
+            error_log("----- USER ----");
+            error_log(print_r($this->user,1));
+            error_log("-----");
+
+            $localDateTime = $this->user->getLocalDateTime();
+            $timeZone = $this->user->getTimezone();
+            error_log("===================");
+            error_log("localDateTime");
+            error_log($localDateTime);
+            error_log($timeZone);
+            error_log("===================");
+            return;
+
             $paraLocalDateTime = $localDateTime == null ? "" : $localDateTime;
 
-            $timeZone = $this->getUser()->getUserAdditional().getTimezone();
             $paraTimezone = $timeZone == null ? "" : $timeZone;
 
             $message = sprintf("%d-%s-%s",

@@ -12,27 +12,22 @@ class BreinActivity {
     private $activities = [];
     private $ipAddress = null;
 
+    /**
+     * BreinActivity constructor.
+     */
     public function __construct() {
         $this->setUnixTimestamp(null);
     }
 
+    /**
+     * @param $user
+     * @throws \Exception
+     */
     public function setUser($user) {
-        $sessionId = empty(session_id()) ? null : session_id();
 
         if (get_class($user) === 'Breinify\API\BreinUser') {
             /** @noinspection PhpUndefinedMethodInspection */
             $this->user = $user->data();
-        } else if (get_class($user) === 'WP_User') {
-            $this->user = [
-                'email'        => $user->user_email,
-                'firstName'    => $user->user_firstname,
-                'lastName'     => $user->user_lastname,
-                'dateOfBirth'  => $user->user_dateOfBirth,
-                'deviceId'     => $user->user_deviceId,
-                'imei'         => $user->user_imei,
-                'sessionId'    => $sessionId,
-                'signature'    => $this->createSignature()
-            ];
         } else if (is_array($user)) {
             $this->user = BreinUtil::filterArray($user, BreinUser::$validAttributes);
         } else {
@@ -40,7 +35,9 @@ class BreinActivity {
         }
     }
 
-
+    /**
+     * @param $unixTimestamp
+     */
     public function setUnixTimestamp($unixTimestamp) {
         $this->unixTimestamp = $unixTimestamp == null ? time() : $unixTimestamp;
     }
@@ -101,6 +98,9 @@ class BreinActivity {
         $this->ipAddress = $ipAddress;
     }
 
+    /**
+     * @return array
+     */
     public function data() {
         return [
             'user'          => $this->user,
@@ -111,6 +111,10 @@ class BreinActivity {
         ];
     }
 
+    /**
+     * @param $data
+     * @return bool
+     */
     public function setData($data) {
 
         // validate the data first
@@ -130,16 +134,25 @@ class BreinActivity {
         }
     }
 
+    /**
+     * @return string
+     */
     public function json() {
         return json_encode($this->data());
     }
 
+    /**
+     * @return bool
+     */
     public function isValid() {
         return !empty($this->apiKey) &&
         !empty($this->activities) && is_array($this->activities) && count($this->activities) > 0 &&
         !empty($this->user) && is_array($this->user) && count($this->user) > 0;
     }
 
+    /**
+     * @return null|string
+     */
     public function createSignature() {
         if (empty($this->secret)) {
             return null;

@@ -18,9 +18,41 @@ class BreinUser {
     private $imei = null;
     private $deviceId = null;
     private $sessionId = null;
-    private $user_additional; //  =  BreinUserAdditional();
+    private $user_additional = null;
+    private $localDateTime = null;
+    private $timezone = null;
+
+    /**
+     * @return null
+     */
+    public function getLocalDateTime()
+    {
+        return $this->localDateTime;
+    }
+
+    /**
+     * @param null $localDateTime
+     */
+    public function setLocalDateTime($localDateTime) {
+        $this->localDateTime = $localDateTime;
+    }
+
+    /**
+     * @return null
+     */
+    public function getTimezone() {
+        return $this->timezone;
+    }
+
+    /**
+     * @param null $timezone
+     */
+    public function setTimezone($timezone) {
+        $this->timezone = $timezone;
+    }
 
     public function data() {
+
         return [
             'email'       => $this->email,
             'firstName'   => $this->firstName,
@@ -32,6 +64,8 @@ class BreinUser {
             'additional'  => $this->user_additional
         ];
     }
+
+
 
     /**
      * @return string the email of the user, null if not set
@@ -143,11 +177,23 @@ class BreinUser {
     }
 
     /**
-     * @param \Breinify\API\BreinUserAdditional $user_additional
+     * @param $user_additional
+     * @throws \Exception
+     *
      */
-    public function setUserAdditional(BreinUserAdditional $user_additional) {
-        error_log("user additional is: ");
-        error_log(print_r($user_additional->data(),1));
-        $this->user_additional = $user_additional;
+    public function setUserAdditional($user_additional) {
+
+        $this->localDateTime = $user_additional->getLocalDateTime();
+        $this->timezone = $user_additional->getTimezone();
+
+        if (get_class($user_additional) === 'Breinify\API\BreinUserAdditional') {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $this->user_additional = $user_additional->data();
+        } else if (is_array($user_additional)) {
+            $this->user_additional = $user_additional;
+        } else {
+            throw new \Exception('Invalid user additional type: ' . $user_additional);
+        }
     }
+    
 }
