@@ -4,9 +4,25 @@ use Breinify\API\BreinActivity;
 use Breinify\API\BreinUser;
 use Breinify\API\BreinEngine;
 use Breinify\API\BreinUserAdditional;
-use Breinify\API\BreinTemporalData;
 
 class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
+
+
+    public function infoTest() {
+    /*
+        $w = stream_get_wrappers();
+        $openssl = extension_loaded('openssl') ? 'yes':'no';
+        $http_wrapper = in_array('http', $w) ? 'yes':'no';
+        $https_wrapper = in_array('https', $w) ? 'yes':'no';
+        $wrappers = var_export($w);
+
+        error_log("$w: "); error_log($w);
+        error_log("$openssl: "); error_log($openssl);
+        error_log("$http_wrapper: "); error_log($http_wrapper);
+        error_log("$https_wrapper: "); error_log($https_wrapper);
+        error_log("$wrappers: "); error_log($wrappers);
+    */
+    }
 
     /**
      * Tests if the data is set correctly.
@@ -120,16 +136,13 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     *
+     * Testcase of login activity request
      */
-    public function testLoginRequest()
-    {
-
-        $activity = new BreinActivity();
-        $user = new BreinUser();
-        $user_additional = new BreinUserAdditional();
-        $engine = new BreinEngine();
-
+    public function testLoginRequest() {
+        $activity = new BreinActivity;
+        $user = new BreinUser;
+        $user_additional = new BreinUserAdditional;
+        $engine = new BreinEngine;
 
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
@@ -144,7 +157,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $user->setUserAdditional($user_additional);
 
         $activity->setUser($user);
-        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-XXXX");
         $activity->addActivity("login", "food", "message of blub");
 
         $engine->setType("curl");
@@ -153,5 +166,26 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         error_log(print_r($result,1));
     }
 
+    /**
+     * Testcase of login activity request using streams
+     */
+    public function testLoginWithStreamImplementationRequest() {
+
+        /*
+        $activity = new BreinActivity;
+        $user = new BreinUser;
+        $engine = new BreinEngine;
+
+        $user->setEmail("toni@maroni.net");
+        $activity->setUser($user);
+        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->addActivity("login", "food", "message of blub");
+
+        BreinEngine::setType("stream");
+        $result = $engine->sendActivity($activity);
+        error_log("result is: ");
+        error_log(print_r($result,1));
+        */
+    }
 
 }

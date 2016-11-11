@@ -1,8 +1,10 @@
 <?php
 namespace Breinify\API;
 
-use Breinify\API\BreinUserAdditional;
-
+/**
+ * Class BreinUser
+ * @package Breinify\API
+ */
 class BreinUser {
 
     public static $validAttributes = [
@@ -11,46 +13,49 @@ class BreinUser {
         "sessionId"
     ];
 
+    /**
+     * @var string $firstName the first name of the user
+     */
     private $firstName = null;
+
+    /**
+     * @var string $lastName the last name of the user
+     */
     private $lastName = null;
+
+    /**
+     * @var string $email the email of the user
+     */
     private $email = null;
+
+    /**
+     * @var string $dateOfBirth contains the birthday of the user
+     */
     private $dateOfBirth = null;
+
+    /**
+     * @var string $imei contains the imei number of user's device
+     */
     private $imei = null;
+
+    /**
+     * @var string $deviceId contains the device id of the user
+     */
     private $deviceId = null;
+
+    /**
+     * @var string $sessionId contains the session id
+     */
     private $sessionId = null;
+
+    /**
+     * @var array $user_additional contains an array of additional fields
+     */
     private $user_additional = null;
-    private $localDateTime = null;
-    private $timezone = null;
 
     /**
-     * @return null
+     * @return array of user related fields
      */
-    public function getLocalDateTime()
-    {
-        return $this->localDateTime;
-    }
-
-    /**
-     * @param null $localDateTime
-     */
-    public function setLocalDateTime($localDateTime) {
-        $this->localDateTime = $localDateTime;
-    }
-
-    /**
-     * @return null
-     */
-    public function getTimezone() {
-        return $this->timezone;
-    }
-
-    /**
-     * @param null $timezone
-     */
-    public function setTimezone($timezone) {
-        $this->timezone = $timezone;
-    }
-
     public function data() {
 
         return [
@@ -64,8 +69,6 @@ class BreinUser {
             'additional'  => $this->user_additional
         ];
     }
-
-
 
     /**
      * @return string the email of the user, null if not set
@@ -170,21 +173,18 @@ class BreinUser {
     }
 
     /**
-     * @return null
+     * @return array $user_additional containing additional fields
      */
     public function getUserAdditional() {
         return $this->user_additional;
     }
 
     /**
-     * @param $user_additional
+     * @param $user_additional object will be mapped to an array
      * @throws \Exception
      *
      */
     public function setUserAdditional($user_additional) {
-
-        $this->localDateTime = $user_additional->getLocalDateTime();
-        $this->timezone = $user_additional->getTimezone();
 
         if (get_class($user_additional) === 'Breinify\API\BreinUserAdditional') {
             /** @noinspection PhpUndefinedMethodInspection */

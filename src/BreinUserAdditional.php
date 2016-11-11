@@ -1,8 +1,11 @@
 <?php
 namespace Breinify\API;
 
-class BreinUserAdditional
-{
+/**
+ * Class BreinUserAdditional
+ * @package Breinify\API
+ */
+class BreinUserAdditional {
 
     public static $validAttributes = [
         "userAgent", "referrer", "url",
@@ -15,8 +18,10 @@ class BreinUserAdditional
     private $localDateTime = null;
     private $timezone = null;
 
-    public function data()
-    {
+    /**
+     * @return array
+     */
+    public function data() {
         return [
             'userAgent'     => $this->userAgent,
             'referrer'      => $this->referrer,

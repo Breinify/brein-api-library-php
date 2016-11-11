@@ -1,6 +1,5 @@
 <?php
 
-use Breinify\API\BreinActivity;
 use Breinify\API\BreinUser;
 use Breinify\API\BreinEngine;
 use Breinify\API\BreinUserAdditional;
@@ -9,7 +8,7 @@ use Breinify\API\BreinTemporalData;
 class BreinifyTempralDataTest extends PHPUnit_Framework_TestCase {
 
     /**
-     *
+     * Testcase of temporaldata request
      */
     public function testTemporalDataRequest() {
         error_log("Running testTemporalDataRequest");
@@ -18,7 +17,6 @@ class BreinifyTempralDataTest extends PHPUnit_Framework_TestCase {
         $user_additional = new BreinUserAdditional;
         $engine = new BreinEngine;
 
-
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
         $user->setImei("990000862471854");
@@ -33,8 +31,8 @@ class BreinifyTempralDataTest extends PHPUnit_Framework_TestCase {
         $user->setUserAdditional($user_additional);
 
         $temporalData->setUser($user);
-        $temporalData->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
-        $output = print_r($temporalData->data(),1);
+        $temporalData->setIpAddress("134.201.250.155");
+        $temporalData->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-XXXX");
 
         $engine->setType("curl");
         $result = $engine->temporalData($temporalData);
@@ -43,15 +41,14 @@ class BreinifyTempralDataTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     *
+     * Testcase of temporaldata request with secret
      */
     public function testTemporalDataRequestWithSecret() {
         error_log("Running testTemporalDataRequestWithSecret");
-        $temporalData = new BreinTemporalData();
-        $user = new BreinUser();
-        $user_additional = new BreinUserAdditional();
-        $engine = new BreinEngine();
-
+        $temporalData = new BreinTemporalData;
+        $user = new BreinUser;
+        $user_additional = new BreinUserAdditional;
+        $engine = new BreinEngine;
 
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
@@ -66,9 +63,10 @@ class BreinifyTempralDataTest extends PHPUnit_Framework_TestCase {
         $user_additional->setTimezone("America/Los_Angeles");
         $user->setUserAdditional($user_additional);
 
+        $temporalData->setIpAddress("134.201.250.155");
         $temporalData->setUser($user);
-        $temporalData->setApiKey("lmcoj4k27hbbszzyiqamhg==");
-        $temporalData->setSecret("CA8A-8D28-3408-45A8-8E20-8474-06C0-8548");
+        $temporalData->setSecret("lmcoj4k27hbbszzyiqamhg==");
+        $temporalData->setApiKey("CA8A-8D28-3408-45A8-8E20-8474-06C0-XXXX");
 
         $engine->setType("curl");
         $result = $engine->temporalData($temporalData);

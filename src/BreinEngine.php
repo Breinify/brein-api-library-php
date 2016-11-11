@@ -2,24 +2,55 @@
 
 namespace Breinify\API;
 
+/**
+ * Class BreinEngine
+ * @package Breinify\API
+ */
 class BreinEngine {
 
     private static $baseUrl = "https://api.breinify.com";
-    private static $type = null;
+    private static $type = "curl";
     private static $validTypes = ["curl" => "doCurl", "stream" => "doFileGetContents"];
 
+    /**
+     * @param $activity
+     * @return mixed
+     */
     public static function sendActivity($activity) {
-        return BreinEngine::execute(BreinEngine::$baseUrl . "/activity", $activity->data());
+        return BreinEngine::execute(BreinEngine::$baseUrl . "/activity",
+            $activity->data());
     }
 
+    /**
+     * @param $temporalData
+     * @return mixed
+     */
     public static function temporalData($temporalData) {
-        return BreinEngine::execute(BreinEngine::$baseUrl . "/temporaldata", $temporalData->data());
+        return BreinEngine::execute(BreinEngine::$baseUrl . "/temporaldata",
+            $temporalData->data());
     }
 
+    /**
+     * @param $recommendation
+     * @return mixed
+     */
+    public static function performRecommendation($recommendation) {
+        return BreinEngine::execute(BreinEngine::$baseUrl . "/recommendation",
+            $recommendation->data());
+    }
+
+    /**
+     * @param $lookUp
+     * @return mixed
+     */
     public static function performLookUp($lookUp) {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/lookup", $lookUp);
     }
 
+    /**
+     * @param $type
+     * @throws \Exception
+     */
     public static function setType($type) {
         $normType = strtolower($type);
 
@@ -30,6 +61,11 @@ class BreinEngine {
         }
     }
 
+    /**
+     * @param $url
+     * @param $data
+     * @return mixed
+     */
     private static function execute($url, $data) {
         $class = __NAMESPACE__ . "\\BreinEngine";
         $method = BreinEngine::selectType();
@@ -37,6 +73,10 @@ class BreinEngine {
         return $class::$method($url, $data);
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     private static function selectType() {
         if (BreinEngine::$type === null) {
             if (function_exists('stream_context_create') && function_exists('file_get_contents') && BreinEngine::isIniSet('allow_url_fopen')) {
@@ -47,10 +87,16 @@ class BreinEngine {
                 throw new \Exception("Unable to find any valid method to communicate with the BreinEngine.");
             }
         } else {
+            error_log("Type is:");
+            error_log(BreinEngine::$validTypes[BreinEngine::$type]);
             return BreinEngine::$validTypes[BreinEngine::$type];
         }
     }
 
+    /**
+     * @param $setting
+     * @return bool
+     */
     private static function isIniSet($setting) {
         $value = ini_get($setting);
 
@@ -127,5 +173,4 @@ class BreinEngine {
         return ['status' => $status, 'response' => json_decode($result, true)];
     }
 
-   
 }

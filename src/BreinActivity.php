@@ -3,6 +3,10 @@ namespace Breinify\API;
 
 use Breinify\API\libraries\BreinUtil;
 
+/**
+ * Class BreinActivity
+ * @package Breinify\API
+ */
 class BreinActivity {
 
     private $apiKey = null;
@@ -52,7 +56,7 @@ class BreinActivity {
      * @return array $activity an array containing the activity to be added
      */
     public function addActivity($type, $category = null, $description = null, $tags = null) {
-        array_push($this->activities, [
+        return array_push($this->activities, [
             'type'        => $type,
             'category'    => $category,
             'description' => $description,
@@ -60,26 +64,44 @@ class BreinActivity {
         ]);
     }
 
+    /**
+     * @return null
+     */
     public function getUser() {
         return $this->user;
     }
 
+    /**
+     * @return array
+     */
     public function getActivities() {
         return $this->activities;
     }
 
+    /**
+     * @param $apiKey
+     */
     public function setApiKey($apiKey) {
         $this->apiKey = $apiKey;
     }
 
+    /**
+     * @return null
+     */
     public function getApiKey() {
         return $this->apiKey;
     }
 
+    /**
+     * @return null
+     */
     public function getUnixTimestamp() {
         return $this->unixTimestamp;
     }
 
+    /**
+     * @param $secret
+     */
     public function setSecret($secret) {
         $this->secret = $secret;
     }
@@ -112,7 +134,7 @@ class BreinActivity {
     }
 
     /**
-     * @param $data
+     * @param $data array
      * @return bool
      */
     public function setData($data) {
@@ -135,14 +157,14 @@ class BreinActivity {
     }
 
     /**
-     * @return string
+     * @return string encoded json data
      */
     public function json() {
         return json_encode($this->data());
     }
 
     /**
-     * @return bool
+     * @return bool checks if BreinActivity contains valid data for further processing
      */
     public function isValid() {
         return !empty($this->apiKey) &&
@@ -151,7 +173,7 @@ class BreinActivity {
     }
 
     /**
-     * @return null|string
+     * @return null|string creates the activity signature
      */
     public function createSignature() {
         if (empty($this->secret)) {
