@@ -3,7 +3,7 @@
 use Breinify\API\BreinActivity;
 use Breinify\API\BreinUser;
 use Breinify\API\BreinEngine;
-use Breinify\API\BreinUserAdditional;
+use Breinify\API\Breinify;
 
 class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
@@ -139,9 +139,11 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
      * Testcase of login activity request
      */
     public function testLoginRequest() {
+
+        error_log("Running testLoginRequest");
+
         $activity = new BreinActivity;
         $user = new BreinUser;
-        $user_additional = new BreinUserAdditional;
         $engine = new BreinEngine;
 
         $user->setFirstName("Toni");
@@ -152,19 +154,51 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $user->setEmail("toni@maroni.net");
 
         // additional
-        $user_additional->setReferrer("10.11.12.130");
-
-        $user->setUserAdditional($user_additional);
+        $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-XXXX");
-        $activity->addActivity("login", "food", "message of blub");
+        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->addActivity("login", "food", "message of a blub");
 
-        $engine->setType("curl");
         $result = $engine->sendActivity($activity);
         error_log("result is: ");
         error_log(print_r($result,1));
+        error_log("=======================");
     }
+
+    /**
+     * Testcase of login activity request
+     */
+    public function testLoginWithSecretRequest() {
+
+        error_log("Running testLoginWithSecretRequest");
+
+        $activity = new BreinActivity;
+        $user = new BreinUser;
+        $engine = new BreinEngine;
+
+        $user->setFirstName("Toni");
+        $user->setLastName("Maroni");
+        $user->setImei("990000862471854");
+        $user->setDeviceId("9XXXX862YUJK19");
+        $user->setSessionId("Rg3vHJZnehYLjVg7qi3bZjzg");
+        $user->setEmail("toni@maroni.net");
+
+        // additional
+        $user->setReferrer("10.11.12.130");
+
+        $activity->setUser($user);
+        $activity->setApiKey("CA8A-8D28-3408-45A8-8E20-8474-06C0-8548");
+        $activity->setSecret("lmcoj4k27hbbszzyiqamhg==");
+        $activity->addActivity("login", "food", "message of a blub");
+
+        $result = $engine->sendActivity($activity);
+        error_log("result is: ");
+        error_log(print_r($result,1));
+
+        error_log("=======================");
+    }
+
 
     /**
      * Testcase of login activity request using streams
@@ -181,7 +215,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
         $activity->addActivity("login", "food", "message of blub");
 
-        BreinEngine::setType("stream");
+        $engine->setType("stream");
         $result = $engine->sendActivity($activity);
         error_log("result is: ");
         error_log(print_r($result,1));

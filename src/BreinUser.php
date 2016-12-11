@@ -49,25 +49,121 @@ class BreinUser {
     private $sessionId = null;
 
     /**
-     * @var array $user_additional contains an array of additional fields
+     * @var null
      */
-    private $user_additional = null;
+    private $userAgent = null;
+
+    /**
+     * @var null
+     */
+    private $referrer = null;
+
+    /**
+     * @var null
+     */
+    private $url = null;
+
+    /**
+     * @var null
+     */
+    private $phone = null;
+
+    /**
+     * @var null
+     */
+    private $userId = null;
+
+    /**
+     * @var null
+     */
+    private $localDateTime = null;
+
+    /**
+     * @var null
+     */
+    private $timezone = null;
 
     /**
      * @return array of user related fields
      */
     public function data() {
 
-        return [
-            'email'       => $this->email,
-            'firstName'   => $this->firstName,
-            'lastName'    => $this->lastName,
-            'dateOfBirth' => $this->dateOfBirth,
-            'imei'        => $this->imei,
-            'deviceId'    => $this->deviceId,
-            'sessionId'   => $this->sessionId,
-            'additional'  => $this->user_additional
-        ];
+        $requestData = array();
+
+        if (!empty($this->email)) {
+            $requestData['email'] = $this->email;
+        }
+
+        if (!empty($this->firstName)) {
+            $requestData['firstName'] = $this->firstName;
+        }
+
+        if (!empty($this->lastName)) {
+            $requestData['lastName'] = $this->lastName;
+        }
+
+        if (!empty($this->dateOfBirth)) {
+            $requestData['dateOfBirth'] = $this->dateOfBirth;
+        }
+
+        if (!empty($this->imei)) {
+            $requestData['imei'] = $this->imei;
+        }
+
+        if (!empty($this->deviceId)) {
+            $requestData['deviceId'] = $this->deviceId;
+        }
+
+        if (!empty($this->sessionId)) {
+            $requestData['sessionId'] = $this->sessionId;
+        }
+
+        if (!empty($this->phone)) {
+            $requestData['phone'] = $this->phone;
+        }
+
+        if (!empty($this->userId)) {
+            $requestData['userId'] = $this->userId;
+        }
+
+        $additionalData = $this->additionalData();
+        if (count($additionalData) > 0) {
+            $requestData['additional'] = $additionalData;
+        }
+
+        return $requestData;
+    }
+
+    /**
+     * crates the data structure for the addtional data part
+     *
+     * @return array
+     */
+    public function additionalData() {
+
+        $requestData = array();
+
+        if (!empty($this->userAgent)) {
+            $requestData['userAgent'] = $this->userAgent;
+        }
+
+        if (!empty($this->referrer)) {
+            $requestData['referrer'] = $this->referrer;
+        }
+
+        if (!empty($this->url)) {
+            $requestData['url'] = $this->url;
+        }
+
+        if (!empty($this->localDateTime)) {
+            $requestData['localDateTime'] = $this->localDateTime;
+        }
+
+        if (!empty($this->timezone)) {
+            $requestData['timezone'] = $this->timezone;
+        }
+
+        return $requestData;
     }
 
     /**
@@ -173,27 +269,101 @@ class BreinUser {
     }
 
     /**
-     * @return array $user_additional containing additional fields
+     * @return null
      */
-    public function getUserAdditional() {
-        return $this->user_additional;
+    public function getUserAgent() {
+        return $this->userAgent;
     }
 
     /**
-     * @param $user_additional object will be mapped to an array
-     * @throws \Exception
-     *
+     * @param null $userAgent
      */
-    public function setUserAdditional($user_additional) {
-
-        if (get_class($user_additional) === 'Breinify\API\BreinUserAdditional') {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $this->user_additional = $user_additional->data();
-        } else if (is_array($user_additional)) {
-            $this->user_additional = $user_additional;
-        } else {
-            throw new \Exception('Invalid user additional type: ' . $user_additional);
-        }
+    public function setUserAgent($userAgent) {
+        $this->userAgent = $userAgent;
     }
-    
+
+    /**
+     * @return null
+     */
+    public function getReferrer() {
+        return $this->referrer;
+    }
+
+    /**
+     * @param null $referrer
+     */
+    public function setReferrer($referrer) {
+        $this->referrer = $referrer;
+    }
+
+    /**
+     * @return null
+     */
+    public function getUrl() {
+        return $this->url;
+    }
+
+    /**
+     * @param null $url
+     */
+    public function setUrl($url) {
+        $this->url = $url;
+    }
+
+    /**
+     * @return null
+     */
+    public function getLocalDateTime() {
+        return $this->localDateTime;
+    }
+
+    /**
+     * @param null $localDateTime
+     */
+    public function setLocalDateTime($localDateTime) {
+        $this->localDateTime = $localDateTime;
+    }
+
+    /**
+     * @return null
+     */
+    public function getTimezone() {
+        return $this->timezone;
+    }
+
+    /**
+     * @param null $timezone
+     */
+    public function setTimezone($timezone) {
+        $this->timezone = $timezone;
+    }
+
+    public function setPhone($string)
+    {
+        $this->phone = $string;
+    }
+
+    /**
+     * @return null
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @return null
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param null $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
 }

@@ -8,9 +8,21 @@ namespace Breinify\API;
  */
 class BreinEngine {
 
+    /**
+     * some constants
+     */
     private static $baseUrl = "https://api.breinify.com";
     private static $type = "curl";
     private static $validTypes = ["curl" => "doCurl", "stream" => "doFileGetContents"];
+
+    /**
+     * BreinEngine constructor.
+     * Default engine type is "curl"
+     */
+    public function __construct() {
+        $this->setType("curl");
+    }
+
 
     /**
      * @param $activity

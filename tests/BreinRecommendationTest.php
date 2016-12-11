@@ -15,15 +15,45 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase {
         $user = new BreinUser;
         $engine = new BreinEngine;
 
-        $user->setEmail("philipp@meisen.net");
+        $user->setEmail("sola@example.com");
 
         $recommendation->setUser($user);
-        $recommendation->setApiKey("7E19-7F47-2509-4CD2-9A9F-7C20-FC2B-XXXX");
+        $recommendation->setApiKey("time-is-ticking");
+        $recommendation->setSecret("time-rift");
 
-        $engine->setType("curl");
+        $recommendation->setApiKey("CA8A-8D28-3408-45A8-8E20-8474-06C0-8548");
+        $recommendation->setSecret("lmcoj4k27hbbszzyiqamhg==");
+
+        $recommendation->setNumberOfRecommendations(10);
+
         $result = $engine->performRecommendation($recommendation);
         error_log("result is: ");
         error_log(print_r($result),1);
+        error_log("=======================");
+    }
+
+
+    /**
+     * Testcase of recommendation request
+     */
+    public function testRecommendationDataRequest2() {
+        error_log("Running testRecommendationDataRequest");
+        $recommendation = new BreinRecommendation;
+        $recommendation->setApiKey("CA8A-8D28-3408-45A8-8E20-8474-06C0-8548");
+        $recommendation->setSecret("lmcoj4k27hbbszzyiqamhg==");
+        $recommendation->setNumberOfRecommendations(10);
+
+        $user = new BreinUser;
+        $user->setEmail("sola@example.com");
+        $user->setPhone("1122333");
+
+        $recommendation->setUser($user);
+
+        $engine = new BreinEngine;
+        $result = $engine->performRecommendation($recommendation);
+        error_log("result is: ");
+        error_log(print_r($result),1);
+        error_log("=======================");
     }
 
 }
