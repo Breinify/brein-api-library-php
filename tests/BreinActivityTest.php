@@ -199,6 +199,104 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         error_log("=======================");
     }
 
+    /**
+     * Testcase of login activity request
+     */
+    public function testPageVisit() {
+
+        error_log("Running testPageVisit");
+
+        $activity = new BreinActivity;
+        $user = new BreinUser;
+        $engine = new BreinEngine;
+
+        $user->setFirstName("Toni");
+        $user->setLastName("Maroni");
+        $user->setImei("990000862471854");
+        $user->setDeviceId("9XXXX862YUJK19");
+        $user->setSessionId("Rg3vHJZnehYLjVg7qi3bZjzg");
+        $user->setEmail("toni@maroni.net");
+
+        // additional
+        $user->setReferrer("10.11.12.130");
+
+        $activity->setUser($user);
+        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->addActivity("pageVisit", "food", "message");
+
+        // tag map
+        $tagMap = array();
+        $tagMap["t1"] = 0.0;
+        $tagMap["t2"] = 5;
+        $tagMap["t3"] = "0.0";
+        $tagMap["t4"] = 5.0000;
+        $tagMap["nr"] = 3000;
+        $activity->setTags($tagMap);
+
+        $result = $engine->sendActivity($activity);
+        error_log("result is: ");
+        error_log(print_r($result,1));
+        error_log("=======================");
+    }
+
+
+    /**
+     * Testcase of login activity request
+     */
+    public function testPageVisitWithAddtionalActivityMap() {
+
+        error_log("Running testPageVisit");
+
+        $activity = new BreinActivity;
+        $user = new BreinUser;
+        $engine = new BreinEngine;
+
+        $user->setFirstName("Toni");
+        $user->setLastName("Maroni");
+
+        // additional
+        $user->setReferrer("10.11.12.130");
+
+        $activity->setUser($user);
+        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->addActivity("pageVisit", "food", "message");
+
+        // tag map
+        $actvityMap = array();
+        $actvityMap["act-1"] = 0.0;
+        $actvityMap["act-2"] = 5;
+        $actvityMap["act-3"] = "0.0";
+
+        $activity->set($actvityMap);
+
+        $result = $engine->sendActivity($activity);
+        error_log("result is: ");
+        error_log(print_r($result,1));
+        error_log("=======================");
+    }
+
+
+    /*
+     *
+     @Test
+    public void testActivityRequestWithUserMap() {
+
+        Breinify.setConfig(breinConfig);
+
+        final Map<String, Object> dataUserMap = new HashMap<>();
+        dataUserMap.put("enhancement-user-1", "user-value-1");
+        dataUserMap.put("enhancement-user-2", "user-value-2");
+
+        final BreinUser localBreinUser = new BreinUser()
+                .setEmail("fred.firestone@email.com")
+                .set(dataUserMap);
+
+        invokeActivityCall(localBreinUser,
+                breinActivityType,
+                breinCategoryType,
+                "login");
+    }
+     */
 
     /**
      * Testcase of login activity request using streams

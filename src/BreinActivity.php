@@ -20,6 +20,18 @@ class BreinActivity extends BreinBase
     private $ipAddress = null;
 
     /**
+     * @var array $activityMap with additional fields on activity level
+     */
+    private $activityMap = array();
+
+    /**
+     * the tagsArray
+     * @var array of tags
+     *
+     */
+    private $tags = array();
+
+    /**
      * An activity has the fields type, description, and tags.
      *
      * @param $type
@@ -72,11 +84,16 @@ class BreinActivity extends BreinBase
     {
         $requestData = parent::data();
 
+
+        // check to see if any additinal activity fields are set
+        if (!empty($this->get())) {
+            $requestData['activity'] = $this->get();
+        }
+
         // field name must be 'activities' in case of multiple activities
         // otherwise call it 'activity' if you can ensure that only one will
         // be sent.
         $requestData['activities'] = $this->activities;
-
 
         if (!empty($this->ipAddress)) {
             $requestData['ipAddress'] = $this->ipAddress;
@@ -84,6 +101,11 @@ class BreinActivity extends BreinBase
 
         if (!empty($this->getSecret())) {
             $requestData['signature'] = $this->createSignature();
+        }
+
+        // check to see if any tags are set
+        if (!empty($this->getTags())) {
+            $requestData['tags'] = $this->getTags();
         }
 
         error_log("content of activity-data is: ");
@@ -154,5 +176,40 @@ class BreinActivity extends BreinBase
             return base64_encode(hash_hmac('sha256', $message, $this->getSecret(), true));
         }
     }
+
+    /**
+     * sets the tags array
+     * @param $tagMap array contains the tagsArray
+     */
+    public function setTags($tagMap)
+    {
+        $this->tags = $tagMap;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @return array
+     */
+    public function get()
+    {
+        return $this->activityMap;
+    }
+
+    /**
+     * @param array $activityMap
+     */
+    public function set($activityMap)
+    {
+        $this->activityMap = $activityMap;
+    }
+
+
 
 }
