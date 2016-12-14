@@ -137,10 +137,11 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Testcase of login activity request
+     *
      */
     public function testLoginRequest() {
 
-        error_log("Running testLoginRequest");
+        echo ("Running testLoginRequest");
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -161,17 +162,16 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $activity->addActivity("login", "food", "message of a blub");
 
         $result = $engine->sendActivity($activity);
-        error_log("result is: ");
-        error_log(print_r($result,1));
-        error_log("=======================");
+        echo ("result is: " . var_dump($result));
+        echo ("=========== END TEST =============");
     }
 
     /**
      * Testcase of login activity request
-     */
+    */
     public function testLoginWithSecretRequest() {
 
-        error_log("Running testLoginWithSecretRequest");
+        echo("Running testLoginWithSecretRequest");
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -193,18 +193,17 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $activity->addActivity("login", "food", "message of a blub");
 
         $result = $engine->sendActivity($activity);
-        error_log("result is: ");
-        error_log(print_r($result,1));
-
-        error_log("=======================");
+        echo("result is: " . var_dump($result));
+        echo("=========== END TEST =============");
     }
+
 
     /**
      * Testcase of login activity request
-     */
+    */
     public function testPageVisit() {
 
-        error_log("Running testPageVisit");
+        echo("Running testPageVisit");
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -234,18 +233,18 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $activity->setTags($tagMap);
 
         $result = $engine->sendActivity($activity);
-        error_log("result is: ");
-        error_log(print_r($result,1));
-        error_log("=======================");
+        echo("result is: " . var_dump($result));
+        echo("=========== END TEST =============");
     }
 
 
     /**
      * Testcase of login activity request
-     */
+     * */
+
     public function testPageVisitWithAddtionalActivityMap() {
 
-        error_log("Running testPageVisit");
+        echo("Running testPageVisit");
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -270,33 +269,42 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $activity->set($actvityMap);
 
         $result = $engine->sendActivity($activity);
-        error_log("result is: ");
-        error_log(print_r($result,1));
-        error_log("=======================");
+        echo("result is: " . var_dump($result));
+        echo("=========== END TEST =============");
     }
 
 
-    /*
-     *
-     @Test
-    public void testActivityRequestWithUserMap() {
+    public function testPageVisitWithBreinifyClass() {
 
-        Breinify.setConfig(breinConfig);
+        echo("Running testPageVisitWithBreinifyClass");
 
-        final Map<String, Object> dataUserMap = new HashMap<>();
-        dataUserMap.put("enhancement-user-1", "user-value-1");
-        dataUserMap.put("enhancement-user-2", "user-value-2");
+        $activity = new BreinActivity;
+        $user = new BreinUser;
+        $breinify = new Breinify;
 
-        final BreinUser localBreinUser = new BreinUser()
-                .setEmail("fred.firestone@email.com")
-                .set(dataUserMap);
+        $user->setFirstName("Toni");
+        $user->setLastName("Maroni");
 
-        invokeActivityCall(localBreinUser,
-                breinActivityType,
-                breinCategoryType,
-                "login");
+        // additional
+        $user->setReferrer("10.11.12.130");
+
+        $activity->setUser($user);
+        $activity->addActivity("pageVisit", "food", "message");
+
+        $breinify->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+
+        // tag map
+        $actvityMap = array();
+        $actvityMap["act-1"] = 0.0;
+        $actvityMap["act-2"] = 5;
+        $actvityMap["act-3"] = "0.0";
+
+        $activity->set($actvityMap);
+
+        $result = $breinify->sendActivity($activity);
+        echo("result is: " . var_dump($result));
+        echo("=========== END TEST =============");
     }
-     */
 
     /**
      * Testcase of login activity request using streams

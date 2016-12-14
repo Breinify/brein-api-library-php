@@ -130,34 +130,33 @@ class BreinEngine {
      * @return array the received information as associative array with 'status' (status-code of the response) and 'response' (the actual payload)
      */
     private static function doCurl($url, $data) {
-        error_log("within doCurl");
 
         $data_string = json_encode($data);
-        error_log("json_encode is: ");
-        error_log($data_string);
+        // echo("\njson_encode is: ");
+        // echo($data_string);
 
-        $curl = curl_init($url);
+        $curl = curl_init();
 
+        curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($data_string))
-        );
 
+        $headers= array('Accept: application/json','Content-Type: application/json');
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+
+        // echo("\ndoCurl: executing. ");
+        // echo("\n  == >URL: " . $url);
+        // echo("\n  == >Fields: " . $data_string);
 
         $response = json_decode(curl_exec($curl), true);
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        error_log("HTTP-Status is: ");
-        error_log($status);
-
         curl_close($curl);
 
-        return ['status' => $status, 'response' => $response];
+        return ['status' => $status, 'result' => $response];
     }
 
     /** @noinspection PhpUnusedPrivateMethodInspection */

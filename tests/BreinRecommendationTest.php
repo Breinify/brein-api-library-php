@@ -1,59 +1,56 @@
 <?php
 
-use Breinify\API\BreinUser;
 use Breinify\API\BreinEngine;
 use Breinify\API\BreinRecommendation;
+use Breinify\API\BreinRecommendationResult;
+use Breinify\API\BreinUser;
 
-class BreinRecommendationTest extends PHPUnit_Framework_TestCase {
+class BreinRecommendationTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * Testcase of recommendation request
      */
-    public function testRecommendationDataRequest() {
+    public function testRecommendationDataRequest()
+    {
+
+        echo "\n";
+        echo "TEST \n\n";
+        echo "TEST \n\n";
+
+        error_log("=========== START TEST =============");
         error_log("Running testRecommendationDataRequest");
         $recommendation = new BreinRecommendation;
         $user = new BreinUser;
         $engine = new BreinEngine;
 
-        $user->setEmail("sola@example.com");
+        $user->setEmail("sola@thedog.com");
 
         $recommendation->setUser($user);
-        $recommendation->setApiKey("time-is-ticking");
-        $recommendation->setSecret("time-rift");
-
-        $recommendation->setApiKey("CA8A-8D28-3408-45A8-8E20-8474-06C0-8548");
-        $recommendation->setSecret("lmcoj4k27hbbszzyiqamhg==");
-
+        $recommendation->setApiKey("2514-2506-68B1-45C3-8DCC-B8B8-32D4-9870");
         $recommendation->setNumberOfRecommendations(10);
 
         $result = $engine->performRecommendation($recommendation);
-        error_log("result is: ");
-        error_log(print_r($result),1);
-        error_log("=======================");
+        $recResult = new BreinRecommendationResult($result);
+
+        $status = $recResult->getStatus();
+
+        if ($status == 200) {
+
+            echo "\n Status from BreinRecommendationResult is: " . $recResult->getStatus();
+            echo "\n Message from BreinRecommendationResult is: " . $recResult->getMessage();
+
+            // loop over results
+            foreach ($recResult->getResults() as $value) {
+                echo "\n Result is: " . print_r($value, true);
+            }
+
+        }
+
+        echo "\n";
+        echo "\n";
+        echo "=========== END TEST =============";
     }
 
-
-    /**
-     * Testcase of recommendation request
-     */
-    public function testRecommendationDataRequest2() {
-        error_log("Running testRecommendationDataRequest");
-        $recommendation = new BreinRecommendation;
-        $recommendation->setApiKey("CA8A-8D28-3408-45A8-8E20-8474-06C0-8548");
-        $recommendation->setSecret("lmcoj4k27hbbszzyiqamhg==");
-        $recommendation->setNumberOfRecommendations(10);
-
-        $user = new BreinUser;
-        $user->setEmail("sola@example.com");
-        $user->setPhone("1122333");
-
-        $recommendation->setUser($user);
-
-        $engine = new BreinEngine;
-        $result = $engine->performRecommendation($recommendation);
-        error_log("result is: ");
-        error_log(print_r($result),1);
-        error_log("=======================");
-    }
 
 }

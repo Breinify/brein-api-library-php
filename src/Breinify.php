@@ -74,15 +74,13 @@ class Breinify
         $this->secret = $secret;
     }
 
-    public function sendActivity($activity)
+    public function sendActivity(BreinActivity &$activity)
     {
-        $act = new BreinActivity($activity);
-
-        $act->setApiKey($this->getApiKey());
-        $act->setSecret($this->getSecret());
+        $activity->setApiKey($this->getApiKey());
+        $activity->setSecret($this->getSecret());
 
         $eng = new BreinEngine($this->getEngine());
-        $eng->sendActivity($act);
+        return $eng->sendActivity($activity);
     }
 
 }
