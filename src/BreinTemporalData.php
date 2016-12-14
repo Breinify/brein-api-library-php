@@ -79,7 +79,7 @@ class BreinTemporalData extends BreinBase {
      */
     public function createSignature() {
 
-        error_log("Invoking createSignature from BreinTemporalData");
+        // echo("Invoking createSignature from BreinTemporalData");
 
         if (empty($this->getSecret())) {
             return null;

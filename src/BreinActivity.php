@@ -108,8 +108,8 @@ class BreinActivity extends BreinBase
             $requestData['tags'] = $this->getTags();
         }
 
-        error_log("content of activity-data is: ");
-        error_log(print_r($requestData), 1);
+        // echo("content of activity-data is: ");
+        // echo(print_r($requestData), 1);
 
         return $requestData;
     }
@@ -160,7 +160,7 @@ class BreinActivity extends BreinBase
     public function createSignature()
     {
 
-        error_log("Invoking createSignature from BreinActivity");
+        // echo("Invoking createSignature from BreinActivity");
 
         if (empty($this->getSecret())) {
             return null;

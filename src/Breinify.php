@@ -15,9 +15,11 @@ class Breinify
 
     private $engine;
 
-    function __construct()
+    function __construct($apiKey, $secret = null)
     {
         $engine = new BreinEngine();
+        $this->apiKey = $apiKey;
+        $this->secret = $secret;
     }
 
     /**
@@ -74,13 +76,43 @@ class Breinify
         $this->secret = $secret;
     }
 
+    /**
+     * @param BreinActivity $activity
+     * @return mixed
+     */
     public function sendActivity(BreinActivity &$activity)
     {
         $activity->setApiKey($this->getApiKey());
         $activity->setSecret($this->getSecret());
 
-        $eng = new BreinEngine($this->getEngine());
-        return $eng->sendActivity($activity);
+        $engine = new BreinEngine($this->getEngine());
+        return $engine->sendActivity($activity);
+    }
+
+    /**
+     * @param BreinRecommendation $recommendation
+     * @return BreinRecommendationResult
+     */
+    public function recommendation(BreinRecommendation &$recommendation){
+        $recommendation->setApiKey($this->getApiKey());
+        $recommendation->setSecret($this->getSecret());
+
+        $engine = new BreinEngine($this->getEngine());
+        $result = $engine->recommendation($recommendation);
+        return new BreinRecommendationResult($result);
+    }
+
+    /**
+     * @param BreinTemporalData $temporalData
+     * @return mixed
+     */
+    public function temporalData(BreinTemporalData &$temporalData) {
+
+        $temporalData->setApiKey($this->getApiKey());
+        $temporalData->setSecret($this->getSecret());
+
+        $engine = new BreinEngine($this->getEngine());
+        return $engine->temporalData($temporalData);
     }
 
 }

@@ -44,8 +44,8 @@ class BreinRecommendation extends BreinBase
 
         $requestData['recommendation'] = $recommendationFields;
 
-        error_log("content of recommendation-data is: ");
-        error_log(print_r($requestData),1);
+        // echo("content of recommendation-data is: ");
+        // echo(print_r($requestData),1);
 
         return $requestData;
     }
@@ -81,7 +81,7 @@ class BreinRecommendation extends BreinBase
      */
     public function createSignature() {
 
-        error_log("Invoking createSignature from BreinRecommendations");
+        // echo ("Invoking createSignature from BreinRecommendations");
 
         if (empty($this->getSecret())) {
             return null;

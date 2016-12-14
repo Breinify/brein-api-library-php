@@ -7,6 +7,8 @@ use Breinify\API\Breinify;
 
 class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
+    public static $API_KEY = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+
 
     public function infoTest() {
     /*
@@ -143,9 +145,11 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
         echo ("Running testLoginRequest");
 
+        $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+
         $activity = new BreinActivity;
         $user = new BreinUser;
-        $engine = new BreinEngine;
+        $breinify = new Breinify($apiKey);
 
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
@@ -158,10 +162,9 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
         $activity->addActivity("login", "food", "message of a blub");
 
-        $result = $engine->sendActivity($activity);
+        $result = $breinify->sendActivity($activity);
         echo ("result is: " . var_dump($result));
         echo ("=========== END TEST =============");
     }
@@ -173,9 +176,12 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
         echo("Running testLoginWithSecretRequest");
 
+        $apiKey = "CA8A-8D28-3408-45A8-8E20-8474-06C0-8548";
+        $secret = "lmcoj4k27hbbszzyiqamhg==";
+
         $activity = new BreinActivity;
         $user = new BreinUser;
-        $engine = new BreinEngine;
+        $breinify = new Breinify($apiKey, $secret);
 
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
@@ -188,11 +194,9 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("CA8A-8D28-3408-45A8-8E20-8474-06C0-8548");
-        $activity->setSecret("lmcoj4k27hbbszzyiqamhg==");
         $activity->addActivity("login", "food", "message of a blub");
 
-        $result = $engine->sendActivity($activity);
+        $result = $breinify->sendActivity($activity);
         echo("result is: " . var_dump($result));
         echo("=========== END TEST =============");
     }
@@ -280,7 +284,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
         $activity = new BreinActivity;
         $user = new BreinUser;
-        $breinify = new Breinify;
+        $breinify = new Breinify("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
 
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
@@ -290,8 +294,6 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
         $activity->setUser($user);
         $activity->addActivity("pageVisit", "food", "message");
-
-        $breinify->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
 
         // tag map
         $actvityMap = array();

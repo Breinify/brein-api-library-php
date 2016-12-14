@@ -46,7 +46,7 @@ class BreinEngine {
      * @param $recommendation
      * @return mixed
      */
-    public static function performRecommendation($recommendation) {
+    public static function recommendation($recommendation) {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/recommendation",
             $recommendation->data());
     }

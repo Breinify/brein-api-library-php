@@ -1,9 +1,8 @@
 <?php
 
-use Breinify\API\BreinEngine;
 use Breinify\API\BreinRecommendation;
-use Breinify\API\BreinRecommendationResult;
 use Breinify\API\BreinUser;
+use Breinify\API\Breinify;
 
 class BreinRecommendationTest extends PHPUnit_Framework_TestCase
 {
@@ -13,29 +12,26 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
      */
     public function testRecommendationDataRequest()
     {
+        echo("\n=========== START TEST =============");
+        echo("Running testRecommendationDataRequest");
 
-        echo "\n";
-        echo "TEST \n\n";
-        echo "TEST \n\n";
+        // configuration
+        $breinify = new Breinify("2514-2506-68B1-45C3-8DCC-B8B8-32D4-9870");
 
-        error_log("=========== START TEST =============");
-        error_log("Running testRecommendationDataRequest");
-        $recommendation = new BreinRecommendation;
+        // user
         $user = new BreinUser;
-        $engine = new BreinEngine;
-
         $user->setEmail("sola@thedog.com");
 
+        // recommendation
+        $recommendation = new BreinRecommendation;
         $recommendation->setUser($user);
-        $recommendation->setApiKey("2514-2506-68B1-45C3-8DCC-B8B8-32D4-9870");
         $recommendation->setNumberOfRecommendations(10);
 
-        $result = $engine->performRecommendation($recommendation);
-        $recResult = new BreinRecommendationResult($result);
+        // invoke request
+        $recResult = $breinify->recommendation($recommendation);
 
-        $status = $recResult->getStatus();
-
-        if ($status == 200) {
+        // result
+        if ($recResult->getStatus() == 200) {
 
             echo "\n Status from BreinRecommendationResult is: " . $recResult->getStatus();
             echo "\n Message from BreinRecommendationResult is: " . $recResult->getMessage();
@@ -47,7 +43,6 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
 
         }
 
-        echo "\n";
         echo "\n";
         echo "=========== END TEST =============";
     }
