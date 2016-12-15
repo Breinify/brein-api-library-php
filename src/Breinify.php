@@ -6,30 +6,43 @@ namespace Breinify\API;
 class Breinify
 {
 
+    /**
+     * @var string - contains the apiKey
+     */
     private $apiKey;
 
+    /**
+     * @var string - contains the secret
+     */
     private $secret;
 
+    /**
+     * @var BreinEngine -> check if necessary
+     */
     private $engine;
 
     function __construct($apiKey, $secret = null)
     {
-        $engine = new BreinEngine();
+        $this->engine = new BreinEngine();
         $this->apiKey = $apiKey;
         $this->secret = $secret;
     }
 
     /**
-     * @return mixed
+     * returns the apiKey
+     *
+     * @return string
      */
     public function getApiKey()
     {
-        echo "ApiKey is: " . $this->apiKey;
+        // echo "ApiKey is: " . $this->apiKey;
         return $this->apiKey;
     }
 
     /**
-     * @param mixed $apiKey
+     * sets the apiKey
+     *
+     * @param string $apiKey
      */
     public function setApiKey($apiKey)
     {
@@ -37,16 +50,19 @@ class Breinify
     }
 
     /**
-     * @return mixed
+     * returns the secret, might be null
+     * @return null|string
      */
     public function getSecret()
     {
-        echo "Secret is: " . $this->secret;
+        // echo "Secret is: " . $this->secret;
         return $this->secret;
     }
 
     /**
-     * @param mixed $secret
+     * sets the secret
+     *
+     * @param string $secret
      */
     public function setSecret($secret)
     {
@@ -54,7 +70,9 @@ class Breinify
     }
 
     /**
-     * @return mixed
+     * returns the breinEngine instance
+     *
+     * @return BreinEngine
      */
     public function getEngine()
     {
@@ -62,13 +80,21 @@ class Breinify
     }
 
     /**
-     * @param mixed $engine
+     * sets the brein engine instance
+     *
+     * @param BreinEngine $engine
      */
     public function setEngine($engine)
     {
         $this->engine = $engine;
     }
 
+    /**
+     * configures the breinify instance
+     *
+     * @param string $apiKey
+     * @param string $secret
+     */
     public function setConfig($apiKey, $secret = null)
     {
         $this->apiKey = $apiKey;
@@ -76,8 +102,10 @@ class Breinify
     }
 
     /**
+     * sends an activity request to the engine
+     *
      * @param BreinActivity $activity
-     * @return mixed
+     * @return array -> result from request
      */
     public function sendActivity(BreinActivity &$activity)
     {
@@ -89,6 +117,8 @@ class Breinify
     }
 
     /**
+     * sends a recommendation request to the eninge
+     *
      * @param BreinRecommendation $recommendation
      * @return BreinRecommendationResult
      */
@@ -103,8 +133,10 @@ class Breinify
     }
 
     /**
+     * invokes a temporalData request
+     *
      * @param BreinTemporalData $temporalData
-     * @return mixed
+     * @return array of results
      */
     public function temporalData(BreinTemporalData &$temporalData)
     {
