@@ -5,12 +5,28 @@ namespace Breinify\API;
  * Class BreinUser
  * @package Breinify\API
  */
-class BreinUser {
+class BreinUser
+{
 
+    /**
+     * @var array of possible attributes when object is created as an array
+     */
     public static $validAttributes = [
-        "email", "firstName", "lastName",
-        "dateOfBirth", "imei", "deviceId",
-        "sessionId"
+        "email",
+        "firstName",
+        "lastName",
+        "dateOfBirth",
+        "imei",
+        "deviceId",
+        "sessionId",
+        "phone",
+        "userAgent",
+        "referrer",
+        "url",
+        "userId",
+        "localDateTime",
+        "timezone",
+        "ipAddress"
     ];
 
     /**
@@ -49,45 +65,50 @@ class BreinUser {
     private $sessionId = null;
 
     /**
-     * @var null
+     * @var string $userAgent contains the userAgent
      */
     private $userAgent = null;
 
     /**
-     * @var null
+     * @var string $referrer contains the referrer
      */
     private $referrer = null;
 
     /**
-     * @var null
+     * @var string $url contains the url
      */
     private $url = null;
 
     /**
-     * @var null
+     * @var string $phone contains the phone
      */
     private $phone = null;
 
     /**
-     * @var null
+     * @var string $userId contains the user id
      */
     private $userId = null;
 
     /**
-     * @var null
+     * @var string $localDateTime contains the localDateTime
      */
     private $localDateTime = null;
 
     /**
-     * @var null
+     * @var string $timezone contains the timezone
      */
     private $timezone = null;
 
     /**
+     * @var string $ipAddress contains the ipAddress
+     */
+    private $ipAddress = null;
+
+    /**
      * @return array of user related fields
      */
-    public function data() {
-
+    public function data()
+    {
         $requestData = array();
 
         if (!empty($this->email)) {
@@ -139,8 +160,8 @@ class BreinUser {
      *
      * @return array
      */
-    public function additionalData() {
-
+    public function additionalData()
+    {
         $requestData = array();
 
         if (!empty($this->userAgent)) {
@@ -169,42 +190,65 @@ class BreinUser {
     /**
      * @return string the email of the user, null if not set
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
     /**
      * @param string $email the email of the user
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
+    }
+
+    /**
+     * Return the ipAddress
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
+    }
+
+    /**
+     * @param string $ipAddress sets the ipAddress
+     */
+    public function setIpAddress($ipAddress)
+    {
+        $this->ipAddress = $ipAddress;
     }
 
     /**
      * @return string the first name of the user
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->firstName;
     }
 
     /**
      * @param string $firstName the first name of the user
      */
-    public function setFirstName($firstName) {
+    public function setFirstName($firstName)
+    {
         $this->firstName = $firstName;
     }
 
     /**
      * @return string the last name of the user
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->lastName;
     }
 
     /**
      * @param string $lastName the last name of the user
      */
-    public function setLastName($lastName) {
+    public function setLastName($lastName)
+    {
         $this->lastName = $lastName;
     }
 
@@ -212,7 +256,8 @@ class BreinUser {
      * @return mixed the date of birth of the user, can be
      * as unix-timestamp, or formatted string (e.g., MM/dd/yyy)
      */
-    public function getDateOfBirth() {
+    public function getDateOfBirth()
+    {
         return $this->dateOfBirth;
     }
 
@@ -220,21 +265,24 @@ class BreinUser {
      * @param mixed $dateOfBirth the date of birth of the user, can be
      * as unix-timestamp, or formatted string (e.g., MM/dd/yyy)
      */
-    public function setDateOfBirth($dateOfBirth) {
+    public function setDateOfBirth($dateOfBirth)
+    {
         $this->dateOfBirth = $dateOfBirth;
     }
 
     /**
      * @return string the International Mobile Station Equipment Identity (IMEI)
      */
-    public function getImei() {
+    public function getImei()
+    {
         return $this->imei;
     }
 
     /**
      * @param string $imei the International Mobile Station Equipment Identity (IMEI)
      */
-    public function setImei($imei) {
+    public function setImei($imei)
+    {
         $this->imei = $imei;
     }
 
@@ -242,7 +290,8 @@ class BreinUser {
      * @return string the device id used by the user (this might be the android id, or any
      * unique identifier of the device
      */
-    public function getDeviceId() {
+    public function getDeviceId()
+    {
         return $this->deviceId;
     }
 
@@ -250,101 +299,117 @@ class BreinUser {
      * @param string $deviceId the device id used by the user (this might be the android id, or any
      * unique identifier of the device
      */
-    public function setDeviceId($deviceId) {
+    public function setDeviceId($deviceId)
+    {
         $this->deviceId = $deviceId;
     }
 
     /**
      * @return string the identifier of the session
      */
-    public function getSessionId() {
+    public function getSessionId()
+    {
         return $this->sessionId;
     }
 
     /**
      * @param string $sessionId the identifier of the session
      */
-    public function setSessionId($sessionId) {
+    public function setSessionId($sessionId)
+    {
         $this->sessionId = $sessionId;
     }
 
     /**
-     * @return null
+     * @return string returns the configured userAgent
      */
-    public function getUserAgent() {
+    public function getUserAgent()
+    {
         return $this->userAgent;
     }
 
     /**
-     * @param null $userAgent
+     * @param string $userAgent value to set
      */
-    public function setUserAgent($userAgent) {
+    public function setUserAgent($userAgent)
+    {
         $this->userAgent = $userAgent;
     }
 
     /**
-     * @return null
+     * @return string the referrer
      */
-    public function getReferrer() {
+    public function getReferrer()
+    {
         return $this->referrer;
     }
 
     /**
-     * @param null $referrer
+     * @param string $referrer to set
      */
-    public function setReferrer($referrer) {
+    public function setReferrer($referrer)
+    {
         $this->referrer = $referrer;
     }
 
     /**
-     * @return null
+     * @return string the configured url
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
     /**
-     * @param null $url
+     * @param string $url to set
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
     }
 
     /**
-     * @return null
+     * @return string localDateTime
      */
-    public function getLocalDateTime() {
+    public function getLocalDateTime()
+    {
         return $this->localDateTime;
     }
 
     /**
-     * @param null $localDateTime
+     * @param string $localDateTime
      */
-    public function setLocalDateTime($localDateTime) {
+    public function setLocalDateTime($localDateTime)
+    {
         $this->localDateTime = $localDateTime;
     }
 
     /**
-     * @return null
+     * @return string timezone
      */
-    public function getTimezone() {
+    public function getTimezone()
+    {
         return $this->timezone;
     }
 
     /**
      * @param null $timezone
      */
-    public function setTimezone($timezone) {
+    public function setTimezone($timezone)
+    {
         $this->timezone = $timezone;
     }
 
-    public function setPhone($string)
+    /**
+     * @param string $phone number to set
+     */
+    public function setPhone($phone)
     {
-        $this->phone = $string;
+        $this->phone = $phone;
     }
 
     /**
-     * @return null
+     * @return string phone number
      */
     public function getPhone()
     {
@@ -352,7 +417,7 @@ class BreinUser {
     }
 
     /**
-     * @return null
+     * @return string userId
      */
     public function getUserId()
     {
@@ -360,7 +425,7 @@ class BreinUser {
     }
 
     /**
-     * @param null $userId
+     * @param string $userId to set
      */
     public function setUserId($userId)
     {

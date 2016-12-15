@@ -2,12 +2,14 @@
 
 use Breinify\API\libraries\BreinUtil;
 
-class BreinUtilTest extends PHPUnit_Framework_TestCase {
+class BreinUtilTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * Test that the array is filtered correctly.
      */
-    public function test_that_filtering_works() {
+    public function test_that_filtering_works()
+    {
         $result = BreinUtil::filterArray([
             "A" => "a", "a" => "A",
             "B" => "b", "b" => "B",

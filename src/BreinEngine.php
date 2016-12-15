@@ -6,7 +6,8 @@ namespace Breinify\API;
  * Class BreinEngine
  * @package Breinify\API
  */
-class BreinEngine {
+class BreinEngine
+{
 
     /**
      * some constants
@@ -19,7 +20,8 @@ class BreinEngine {
      * BreinEngine constructor.
      * Default engine type is "curl"
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->setType("curl");
     }
 
@@ -28,7 +30,8 @@ class BreinEngine {
      * @param $activity
      * @return mixed
      */
-    public static function sendActivity($activity) {
+    public static function sendActivity($activity)
+    {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/activity",
             $activity->data());
     }
@@ -37,7 +40,8 @@ class BreinEngine {
      * @param $temporalData
      * @return mixed
      */
-    public static function temporalData($temporalData) {
+    public static function temporalData($temporalData)
+    {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/temporaldata",
             $temporalData->data());
     }
@@ -46,7 +50,8 @@ class BreinEngine {
      * @param $recommendation
      * @return mixed
      */
-    public static function recommendation($recommendation) {
+    public static function recommendation($recommendation)
+    {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/recommendation",
             $recommendation->data());
     }
@@ -55,7 +60,8 @@ class BreinEngine {
      * @param $lookUp
      * @return mixed
      */
-    public static function performLookUp($lookUp) {
+    public static function performLookUp($lookUp)
+    {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/lookup", $lookUp);
     }
 
@@ -63,7 +69,8 @@ class BreinEngine {
      * @param $type
      * @throws \Exception
      */
-    public static function setType($type) {
+    public static function setType($type)
+    {
         $normType = strtolower($type);
 
         if (array_key_exists($normType, BreinEngine::$validTypes)) {
@@ -78,7 +85,8 @@ class BreinEngine {
      * @param $data
      * @return mixed
      */
-    private static function execute($url, $data) {
+    private static function execute($url, $data)
+    {
         $class = __NAMESPACE__ . "\\BreinEngine";
         $method = BreinEngine::selectType();
 
@@ -89,7 +97,8 @@ class BreinEngine {
      * @return mixed
      * @throws \Exception
      */
-    private static function selectType() {
+    private static function selectType()
+    {
         if (BreinEngine::$type === null) {
             if (function_exists('stream_context_create') && function_exists('file_get_contents') && BreinEngine::isIniSet('allow_url_fopen')) {
                 return BreinEngine::$validTypes["stream"];
@@ -99,8 +108,8 @@ class BreinEngine {
                 throw new \Exception("Unable to find any valid method to communicate with the BreinEngine.");
             }
         } else {
-            error_log("Type is:");
-            error_log(BreinEngine::$validTypes[BreinEngine::$type]);
+            // echo "Type is:";
+            // echo BreinEngine::$validTypes[BreinEngine::$type];
             return BreinEngine::$validTypes[BreinEngine::$type];
         }
     }
@@ -109,7 +118,8 @@ class BreinEngine {
      * @param $setting
      * @return bool
      */
-    private static function isIniSet($setting) {
+    private static function isIniSet($setting)
+    {
         $value = ini_get($setting);
 
         if ((int)$value > 0) {
@@ -129,7 +139,8 @@ class BreinEngine {
      * @param $data mixed the data to be send
      * @return array the received information as associative array with 'status' (status-code of the response) and 'response' (the actual payload)
      */
-    private static function doCurl($url, $data) {
+    private static function doCurl($url, $data)
+    {
 
         $data_string = json_encode($data);
         // echo("\njson_encode is: ");
@@ -143,7 +154,7 @@ class BreinEngine {
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
 
-        $headers= array('Accept: application/json','Content-Type: application/json');
+        $headers = array('Accept: application/json', 'Content-Type: application/json');
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
@@ -167,13 +178,14 @@ class BreinEngine {
      * @param $data mixed the data to be send
      * @return array the received information as associative array with 'status' (status-code of the response) and 'response' (the actual payload)
      */
-    private static function doFileGetContents($url, $data) {
+    private static function doFileGetContents($url, $data)
+    {
 
         // use key 'http' even if you send the request to https://...
         $options = [
             'http' => [
-                'header'  => "Content-type: application/json",
-                'method'  => 'POST',
+                'header' => "Content-type: application/json",
+                'method' => 'POST',
                 'content' => json_encode($data),
             ],
         ];

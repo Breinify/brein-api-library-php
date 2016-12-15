@@ -1,8 +1,8 @@
 <?php
 namespace Breinify\API\libraries;
 
-class BreinUtil {
-
+class BreinUtil
+{
     /**
      * Method used to filter an array based on keys.
      *
@@ -10,7 +10,8 @@ class BreinUtil {
      * @param $keys array the keys to remain in the array
      * @return array the filtered array
      */
-    public static function filterArray($toBeFiltered, $keys) {
+    public static function filterArray($toBeFiltered, $keys)
+    {
         $result = [];
 
         foreach ($toBeFiltered as $key => $value) {

@@ -1,8 +1,6 @@
 <?php
 namespace Breinify\API;
 
-use Breinify\API\libraries\BreinUtil;
-
 /**
  * Class BreinRecommendation
  * @package Breinify\API
@@ -11,14 +9,9 @@ class BreinRecommendation extends BreinBase
 {
 
     /**
-     * @var int $numberOfRecommendations contains the number of recommendations with default of 10
+     * @var int $numberOfRecommendations contains the number of recommendations with default of 3
      */
-    private $numberOfRecommendations = 10;
-
-    /**
-     * @var array of recommendation entries within the recommendation block
-     */
-    private $recommendations = array();
+    private $numberOfRecommendations = 3;
 
     /**
      * BreinActivity constructor.
@@ -79,8 +72,8 @@ class BreinRecommendation extends BreinBase
     /**
      * @return null|string creates the activity signature
      */
-    public function createSignature() {
-
+    public function createSignature()
+    {
         // echo ("Invoking createSignature from BreinRecommendations");
 
         if (empty($this->getSecret())) {

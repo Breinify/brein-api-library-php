@@ -2,9 +2,6 @@
 
 namespace Breinify\API;
 
-use Breinify\API\BreinEngine;
-
-
 
 class Breinify
 {
@@ -27,6 +24,7 @@ class Breinify
      */
     public function getApiKey()
     {
+        echo "ApiKey is: " . $this->apiKey;
         return $this->apiKey;
     }
 
@@ -43,6 +41,7 @@ class Breinify
      */
     public function getSecret()
     {
+        echo "Secret is: " . $this->secret;
         return $this->secret;
     }
 
@@ -93,7 +92,8 @@ class Breinify
      * @param BreinRecommendation $recommendation
      * @return BreinRecommendationResult
      */
-    public function recommendation(BreinRecommendation &$recommendation){
+    public function recommendation(BreinRecommendation &$recommendation)
+    {
         $recommendation->setApiKey($this->getApiKey());
         $recommendation->setSecret($this->getSecret());
 
@@ -106,7 +106,8 @@ class Breinify
      * @param BreinTemporalData $temporalData
      * @return mixed
      */
-    public function temporalData(BreinTemporalData &$temporalData) {
+    public function temporalData(BreinTemporalData &$temporalData)
+    {
 
         $temporalData->setApiKey($this->getApiKey());
         $temporalData->setSecret($this->getSecret());

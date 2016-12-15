@@ -1,16 +1,18 @@
 <?php
 
-use Breinify\API\BreinUser;
 use Breinify\API\BreinEngine;
 use Breinify\API\BreinTemporalData;
+use Breinify\API\BreinUser;
 
-class BreinifyTempralDataTest extends PHPUnit_Framework_TestCase {
+class BreinifyTempralDataTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * Testcase of temporaldata request
      *
      */
-    public function testTemporalDataRequest() {
+    public function testTemporalDataRequest()
+    {
         echo("Running testTemporalDataRequest");
         $temporalData = new BreinTemporalData;
         $user = new BreinUser;

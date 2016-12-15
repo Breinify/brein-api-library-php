@@ -1,14 +1,12 @@
 <?php
 namespace Breinify\API;
 
-use Breinify\API\libraries\BreinUtil;
-use Breinify\API\BreinUser;
-
 /**
  * Class BreinTemporalData
  * @package Breinify\API
  */
-class BreinTemporalData extends BreinBase {
+class BreinTemporalData extends BreinBase
+{
 
     /**
      * @var string $ipAddress contains the ipAddress
@@ -18,26 +16,29 @@ class BreinTemporalData extends BreinBase {
     /**
      * @return string the ipAddress
      */
-    public function getIpAddress() {
+    public function getIpAddress()
+    {
         return $this->ipAddress;
     }
 
     /**
      * @param string $ipAddress
      */
-    public function setIpAddress($ipAddress) {
+    public function setIpAddress($ipAddress)
+    {
         $this->ipAddress = $ipAddress;
     }
 
     /**
      * @return array the data array of temporaldata
      */
-    public function data() {
+    public function data()
+    {
 
         $requestData = array();
 
         if (!empty($this->getUser())) {
-            $requestData['user'] = $this->getUser();
+            $requestData['user'] = $this->getUser()->data();
         }
 
         if (!empty($this->getApiKey())) {
@@ -62,14 +63,16 @@ class BreinTemporalData extends BreinBase {
     /**
      * @return string encoded json data
      */
-    public function json() {
+    public function json()
+    {
         return json_encode($this->data());
     }
 
     /**
      * @return bool checks if temporaldata contains all necessary data
      */
-    public function isValid() {
+    public function isValid()
+    {
         return !empty($this->getApiKey() &&
             !empty($this->getUser()) && is_array($this->getUser()) && count($this->getUser()) > 0);
     }
@@ -77,7 +80,8 @@ class BreinTemporalData extends BreinBase {
     /**
      * @return null|string
      */
-    public function createSignature() {
+    public function createSignature()
+    {
 
         // echo("Invoking createSignature from BreinTemporalData");
 
@@ -92,7 +96,7 @@ class BreinTemporalData extends BreinBase {
             $timezone = $user->getTimezone();
             // error_log("timezone is: "); error_log($timezone);
             $paraTimezone = $timezone == null ? "" : $timezone;
-            
+
             $message = sprintf("%d-%s-%s",
                 $this->getUnixTimestamp(), $paraLocalDateTime, $paraTimezone);
 

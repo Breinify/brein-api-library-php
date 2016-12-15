@@ -1,38 +1,41 @@
 <?php
 
 use Breinify\API\BreinActivity;
-use Breinify\API\BreinUser;
 use Breinify\API\BreinEngine;
 use Breinify\API\Breinify;
+use Breinify\API\BreinUser;
 
-class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
+class BreinifyActivityTest extends PHPUnit_Framework_TestCase
+{
 
     public static $API_KEY = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
 
 
-    public function infoTest() {
-    /*
-        $w = stream_get_wrappers();
-        $openssl = extension_loaded('openssl') ? 'yes':'no';
-        $http_wrapper = in_array('http', $w) ? 'yes':'no';
-        $https_wrapper = in_array('https', $w) ? 'yes':'no';
-        $wrappers = var_export($w);
+    public function infoTest()
+    {
+        /*
+            $w = stream_get_wrappers();
+            $openssl = extension_loaded('openssl') ? 'yes':'no';
+            $http_wrapper = in_array('http', $w) ? 'yes':'no';
+            $https_wrapper = in_array('https', $w) ? 'yes':'no';
+            $wrappers = var_export($w);
 
-        error_log("$w: "); error_log($w);
-        error_log("$openssl: "); error_log($openssl);
-        error_log("$http_wrapper: "); error_log($http_wrapper);
-        error_log("$https_wrapper: "); error_log($https_wrapper);
-        error_log("$wrappers: "); error_log($wrappers);
-    */
+            error_log("$w: "); error_log($w);
+            error_log("$openssl: "); error_log($openssl);
+            error_log("$http_wrapper: "); error_log($http_wrapper);
+            error_log("$https_wrapper: "); error_log($https_wrapper);
+            error_log("$wrappers: "); error_log($wrappers);
+        */
     }
 
     /**
      * Tests if the data is set correctly.
      */
-    public function test_that_data_is_set_correctly() {
+    public function test_that_data_is_set_correctly()
+    {
         $activity = new BreinActivity();
 
-        $activityArray = json_decode(preg_replace( "/[ ]{2,}|[\t]|\r|\n/", "",
+        $activityArray = json_decode(preg_replace("/[ ]{2,}|[\t]|\r|\n/", "",
             "{
               \"user\": {
                 \"email\": \"philipp@wherever.com\",
@@ -79,7 +82,8 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
     /**
      * Tests if the data from a BreinifyUser is read correctly.
      */
-    public function test_that_user_data_is_read_from_BreinifyUser() {
+    public function test_that_user_data_is_read_from_BreinifyUser()
+    {
         $activity = new BreinActivity();
         $user = new BreinUser();
 
@@ -92,21 +96,22 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
         $activity->setUser($user);
 
-        $this->assertEquals("tobias@brother.net", $activity->getUser()["email"]);
-        $this->assertEquals("Tobias", $activity->getUser()["firstName"]);
-        $this->assertEquals("Meisen", $activity->getUser()["lastName"]);
-        $this->assertEquals("990000862471854", $activity->getUser()["imei"]);
-        $this->assertEquals("9XXXX862YUJK19", $activity->getUser()["deviceId"]);
-        $this->assertEquals("Rg3vHJZnehYLjVg7qi3bZjzg", $activity->getUser()["sessionId"]);
+        $this->assertEquals("tobias@brother.net", $activity->getUser()->getEmail());
+        $this->assertEquals("Tobias", $activity->getUser()->getFirstName());
+        $this->assertEquals("Meisen", $activity->getUser()->getLastName());
+        $this->assertEquals("990000862471854", $activity->getUser()->getImei());
+        $this->assertEquals("9XXXX862YUJK19", $activity->getUser()->getDeviceId());
+        $this->assertEquals("Rg3vHJZnehYLjVg7qi3bZjzg", $activity->getUser()->getSessionId());
     }
 
     /**
      * Tests if the created signature for an activity is correct.
      */
-    public function test_that_signature_is_correct() {
+    public function test_that_signature_is_correct()
+    {
         $activity = new BreinActivity();
 
-        $activityArray = json_decode(preg_replace( "/[ ]{2,}|[\t]|\r|\n/", "",
+        $activityArray = json_decode(preg_replace("/[ ]{2,}|[\t]|\r|\n/", "",
             "{
               \"user\": {
                 \"email\": \"philipp@meisen.net\",
@@ -141,9 +146,10 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
      * Testcase of login activity request
      *
      */
-    public function testLoginRequest() {
+    public function testLoginRequest()
+    {
 
-        echo ("Running testLoginRequest");
+        echo("Running testLoginRequest");
 
         $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
 
@@ -165,14 +171,15 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
         $activity->addActivity("login", "food", "message of a blub");
 
         $result = $breinify->sendActivity($activity);
-        echo ("result is: " . var_dump($result));
-        echo ("=========== END TEST =============");
+        echo("result is: " . var_dump($result));
+        echo("=========== END TEST =============");
     }
 
     /**
      * Testcase of login activity request
-    */
-    public function testLoginWithSecretRequest() {
+     */
+    public function testLoginWithSecretRequest()
+    {
 
         echo("Running testLoginWithSecretRequest");
 
@@ -204,8 +211,9 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Testcase of login activity request
-    */
-    public function testPageVisit() {
+     */
+    public function testPageVisit()
+    {
 
         echo("Running testPageVisit");
 
@@ -246,7 +254,8 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
      * Testcase of login activity request
      * */
 
-    public function testPageVisitWithAddtionalActivityMap() {
+    public function testPageVisitWithAddtionalActivityMap()
+    {
 
         echo("Running testPageVisit");
 
@@ -278,7 +287,8 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function testPageVisitWithBreinifyClass() {
+    public function testPageVisitWithBreinifyClass()
+    {
 
         echo("Running testPageVisitWithBreinifyClass");
 
@@ -311,7 +321,8 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase {
     /**
      * Testcase of login activity request using streams
      */
-    public function testLoginWithStreamImplementationRequest() {
+    public function testLoginWithStreamImplementationRequest()
+    {
 
         /*
         $activity = new BreinActivity;

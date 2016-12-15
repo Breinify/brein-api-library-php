@@ -15,11 +15,6 @@ class BreinActivity extends BreinBase
     private $activities = [];
 
     /**
-     * @var $ipAddress string contains the ipAddress
-     */
-    private $ipAddress = null;
-
-    /**
      * @var array $activityMap with additional fields on activity level
      */
     private $activityMap = array();
@@ -34,10 +29,10 @@ class BreinActivity extends BreinBase
     /**
      * An activity has the fields type, description, and tags.
      *
-     * @param $type
-     * @param null $description the description of the activity
-     * @param null $category the category of the activity
-     * @param null $tags comma-separated list of tags
+     * @param $type string
+     * @param string $description the description of the activity
+     * @param string $category the category of the activity
+     * @param string $tags comma-separated list of tags
      * @return array $activity an array containing the activity to be added
      */
     public function addActivity($type, $category = null, $description = null, $tags = null)
@@ -59,23 +54,6 @@ class BreinActivity extends BreinBase
     }
 
     /**
-     * @return string the ipAddress
-     */
-    public function getIpAddress()
-    {
-        return $this->ipAddress;
-    }
-
-    /**
-     * sets the ip address
-     * @param $ipAddress
-     */
-    public function setIpAddress($ipAddress)
-    {
-        $this->ipAddress = $ipAddress;
-    }
-
-    /**
      * creates the data request
      *
      * @return array
@@ -83,7 +61,6 @@ class BreinActivity extends BreinBase
     public function data()
     {
         $requestData = parent::data();
-
 
         // check to see if any additinal activity fields are set
         if (!empty($this->get())) {
@@ -124,7 +101,8 @@ class BreinActivity extends BreinBase
         if (is_array($data) &&
             (!empty($data['activities']) || !empty($data['activity'])) &&
             !empty($data['apiKey']) &&
-            !empty($data['user'])) {
+            !empty($data['user'])
+        ) {
             $this->setUser($data['user']);
             $this->activities = (!empty($data['activities']) ? $data['activities'] : [$data['activity']]);
             $this->setApiKey($data['apiKey']);
@@ -159,9 +137,7 @@ class BreinActivity extends BreinBase
      */
     public function createSignature()
     {
-
         // echo("Invoking createSignature from BreinActivity");
-
         if (empty($this->getSecret())) {
             return null;
         } else {
@@ -209,7 +185,4 @@ class BreinActivity extends BreinBase
     {
         $this->activityMap = $activityMap;
     }
-
-
-
 }

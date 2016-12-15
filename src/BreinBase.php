@@ -24,14 +24,23 @@ class BreinBase
     /**
      * @var object $user contains the user object
      */
-    private $user = null;
+    private $user;
 
-    public function __construct() {
+    /**
+     * @var array of additional fields for base section
+     */
+    private $baseMap = array();
+
+    /**
+     * BreinBase constructor.
+     */
+    public function __construct()
+    {
         $this->setUnixTimestamp(null);
     }
 
     /**
-     * @return null
+     * @return string
      */
     public function getApiKey()
     {
@@ -39,7 +48,7 @@ class BreinBase
     }
 
     /**
-     * @param null $apiKey
+     * @param string $apiKey
      */
     public function setApiKey($apiKey)
     {
@@ -47,7 +56,7 @@ class BreinBase
     }
 
     /**
-     * @return null
+     * @return string the secret
      */
     public function getSecret()
     {
@@ -55,7 +64,7 @@ class BreinBase
     }
 
     /**
-     * @param null $secret
+     * @param $secret string
      */
     public function setSecret($secret)
     {
@@ -63,7 +72,7 @@ class BreinBase
     }
 
     /**
-     * @return null
+     * @return int the timestamp
      */
     public function getUnixTimestamp()
     {
@@ -71,14 +80,15 @@ class BreinBase
     }
 
     /**
-     * @param null $unixTimestamp
+     * @param long $unixTimestamp
      */
-    public function setUnixTimestamp($unixTimestamp) {
+    public function setUnixTimestamp($unixTimestamp)
+    {
         $this->unixTimestamp = $unixTimestamp == null ? time() : $unixTimestamp;
     }
 
     /**
-     * @return null
+     * @return BreinUser the user
      */
     public function getUser()
     {
@@ -89,8 +99,8 @@ class BreinBase
      * @param $user
      * @throws \Exception
      */
-    public function setUser($user) {
-
+    public function setUserFromArray($user)
+    {
         if (is_object($user) && get_class($user) === 'Breinify\API\BreinUser') {
             /** @noinspection PhpUndefinedMethodInspection */
             $this->user = $user->data();
@@ -101,16 +111,27 @@ class BreinBase
         }
     }
 
+    public function setUser($user) {
+        $this->user = $user;
+    }
+
     /**
-     *
+     * prepares the data for the request
      */
     public function data()
     {
         $requestData = array();
 
-        $requestData['user'] = $this->getUser();
+        $requestData['user'] = $this->getUser()->data();
         $requestData['apiKey'] = $this->getApiKey();
         $requestData['unixTimestamp'] = $this->getUnixTimestamp();
+
+        // ipAddress is configured on BreinUser but needs to be
+        // inserted in base section
+        $ipAddress = $this->getUser()->getIpAddress();
+        if (!empty($ipAddress)) {
+            $requestData['ipAddress'] = $ipAddress;
+        }
 
         return $requestData;
     }
