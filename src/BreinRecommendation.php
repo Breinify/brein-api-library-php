@@ -70,7 +70,7 @@ class BreinRecommendation extends BreinBase
     }
 
     /**
-     * @return null|string creates the recommendation signature
+     * @return null|string creates the activity signature
      */
     public function createSignature()
     {
@@ -79,7 +79,10 @@ class BreinRecommendation extends BreinBase
         if (empty($this->getSecret())) {
             return null;
         } else {
-            $message = sprintf("%d",$this->getUnixTimestamp());
+            $message = sprintf("%d%d",
+                $this->getUnixTimestamp(),
+                $this->numberOfRecommendations);
+
             return base64_encode(hash_hmac('sha256', $message, $this->getSecret(), true));
         }
     }

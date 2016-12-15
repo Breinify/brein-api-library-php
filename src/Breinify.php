@@ -24,7 +24,7 @@ class Breinify
      */
     public function getApiKey()
     {
-        // echo "ApiKey is: " . $this->apiKey;
+        echo "ApiKey is: " . $this->apiKey;
         return $this->apiKey;
     }
 
@@ -41,7 +41,7 @@ class Breinify
      */
     public function getSecret()
     {
-        // echo "Secret is: " . $this->secret;
+        echo "Secret is: " . $this->secret;
         return $this->secret;
     }
 
