@@ -151,7 +151,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
 
         echo("Running testLoginRequest");
 
-        $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+        $apiKey = "XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -183,8 +183,8 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
 
         echo("Running testLoginWithSecretRequest");
 
-        $apiKey = "CA8A-8D28-3408-45A8-8E20-8474-06C0-8548";
-        $secret = "lmcoj4k27hbbszzyiqamhg==";
+        $apiKey = "XXXX-8D28-3408-45A8-8E20-8474-06C0-8548";
+        $secret = "XXXXj4k27hbbszzyiqamhg==";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -232,7 +232,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->setApiKey("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
         $activity->addActivity("pageVisit", "food", "message");
 
         // tag map
@@ -270,7 +270,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->setApiKey("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
         $activity->addActivity("pageVisit", "food", "message");
 
         // tag map
@@ -294,7 +294,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
 
         $activity = new BreinActivity;
         $user = new BreinUser;
-        $breinify = new Breinify("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $breinify = new Breinify("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
 
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
