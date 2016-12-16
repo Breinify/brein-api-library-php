@@ -8,7 +8,7 @@ use Breinify\API\BreinUser;
 class BreinifyActivityTest extends PHPUnit_Framework_TestCase
 {
 
-    public static $API_KEY = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+    public static $API_KEY = "XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8";
 
 
     public function infoTest()
@@ -151,7 +151,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
 
         echo "Running testLoginRequest";
 
-        $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+        $apiKey = "XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -183,7 +183,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
     {
         echo "Running testLoginRequestWithStream\n";
 
-        $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+        $apiKey = "XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -219,7 +219,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
     {
         echo "Running testLoginRequestWithUserAndUserAdditionalMaps\n";
 
-        $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+        $apiKey = "XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -304,7 +304,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->setApiKey("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
         $activity->addActivity("pageVisit", "food", "message");
 
         // tag map
@@ -340,7 +340,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->setApiKey("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
         $activity->addActivity("pageVisit", "food", "message");
 
         // tag map
@@ -367,7 +367,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
 
         $activity = new BreinActivity;
         $user = new BreinUser;
-        $breinify = new Breinify("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $breinify = new Breinify("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
 
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
