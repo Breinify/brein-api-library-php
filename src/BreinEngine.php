@@ -25,7 +25,6 @@ class BreinEngine
         $this->setType("curl");
     }
 
-
     /**
      * @param $activity
      * @return mixed
@@ -160,7 +159,7 @@ class BreinEngine
 
         // echo("\ndoCurl: executing. ");
         // echo("\n  == >URL: " . $url);
-        // echo("\n  == >Fields: " . $data_string);
+        // echo("\n  == >Fields: " . $data_string . "\n");
 
         $response = json_decode(curl_exec($curl), true);
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -181,6 +180,10 @@ class BreinEngine
     private static function doFileGetContents($url, $data)
     {
 
+        echo "Within doFileGetContents \n";
+        echo " URL is : " . $url . "\n";
+        echo " Data is: " . var_dump($data) . "\n";
+;
         // use key 'http' even if you send the request to https://...
         $options = [
             'http' => [
@@ -190,7 +193,11 @@ class BreinEngine
             ],
         ];
         $context = stream_context_create($options);
+        echo " Context is: " . $context . "\n";
+
         $result = file_get_contents($url, false, $context);
+        echo " Result is: " . $result . "\n";
+
         $status = $result === false ? 500 : 200;
 
         return ['status' => $status, 'response' => json_decode($result, true)];

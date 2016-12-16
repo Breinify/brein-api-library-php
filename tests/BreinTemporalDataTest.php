@@ -32,7 +32,7 @@ class BreinifyTempralDataTest extends PHPUnit_Framework_TestCase
 
         $temporalData->setUser($user);
         $temporalData->setIpAddress("134.201.250.155");
-        $temporalData->setApiKey("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $temporalData->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
 
         $result = $engine->temporalData($temporalData);
         echo("result is: " . var_dump($result));

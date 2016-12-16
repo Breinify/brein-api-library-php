@@ -90,6 +90,22 @@ class Breinify
     }
 
     /**
+     * sets curl as an engine type
+     */
+    public function setCurlEngineType()
+    {
+        $this->getEngine()->setType("curl");
+    }
+
+    /**
+     * sets stream as an engine type
+     */
+    public function setStreamEngineType()
+    {
+        $this->getEngine()->setType("stream");
+    }
+
+    /**
      * configures the breinify instance
      *
      * @param string $apiKey
@@ -104,7 +120,7 @@ class Breinify
     /**
      * sends an activity request to the engine
      *
-     * @param BreinActivity $activity
+     * @param BreinActivity $activity (reference)
      * @return array -> result from request
      */
     public function sendActivity(BreinActivity &$activity)
@@ -112,14 +128,13 @@ class Breinify
         $activity->setApiKey($this->getApiKey());
         $activity->setSecret($this->getSecret());
 
-        $engine = new BreinEngine($this->getEngine());
-        return $engine->sendActivity($activity);
+        return $this->getEngine()->sendActivity($activity);
     }
 
     /**
-     * sends a recommendation request to the eninge
+     * sends a recommendation request to the engine
      *
-     * @param BreinRecommendation $recommendation
+     * @param BreinRecommendation $recommendation (reference)
      * @return BreinRecommendationResult
      */
     public function recommendation(BreinRecommendation &$recommendation)
@@ -127,15 +142,15 @@ class Breinify
         $recommendation->setApiKey($this->getApiKey());
         $recommendation->setSecret($this->getSecret());
 
-        $engine = new BreinEngine($this->getEngine());
-        $result = $engine->recommendation($recommendation);
+        // $engine = new BreinEngine($this->getEngine());
+        $result = $this->getEngine()->recommendation($recommendation);
         return new BreinRecommendationResult($result);
     }
 
     /**
      * invokes a temporalData request
      *
-     * @param BreinTemporalData $temporalData
+     * @param BreinTemporalData $temporalData (reference)
      * @return array of results
      */
     public function temporalData(BreinTemporalData &$temporalData)
@@ -144,8 +159,8 @@ class Breinify
         $temporalData->setApiKey($this->getApiKey());
         $temporalData->setSecret($this->getSecret());
 
-        $engine = new BreinEngine($this->getEngine());
-        return $engine->temporalData($temporalData);
+        // $engine = new BreinEngine($this->getEngine());
+        return $this->getEngine()->temporalData($temporalData);
     }
 
 }

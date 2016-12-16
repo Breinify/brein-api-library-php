@@ -105,47 +105,21 @@ class BreinUser
     private $ipAddress = null;
 
     /**
+     * @var array
+     */
+    private $userMap = array();
+
+    /**
+     * @var array
+     */
+    private $userAdditionalMap = array();
+
+    /**
      * @return array of user related fields
      */
     public function data()
     {
-        $requestData = array();
-
-        if (!empty($this->email)) {
-            $requestData['email'] = $this->email;
-        }
-
-        if (!empty($this->firstName)) {
-            $requestData['firstName'] = $this->firstName;
-        }
-
-        if (!empty($this->lastName)) {
-            $requestData['lastName'] = $this->lastName;
-        }
-
-        if (!empty($this->dateOfBirth)) {
-            $requestData['dateOfBirth'] = $this->dateOfBirth;
-        }
-
-        if (!empty($this->imei)) {
-            $requestData['imei'] = $this->imei;
-        }
-
-        if (!empty($this->deviceId)) {
-            $requestData['deviceId'] = $this->deviceId;
-        }
-
-        if (!empty($this->sessionId)) {
-            $requestData['sessionId'] = $this->sessionId;
-        }
-
-        if (!empty($this->phone)) {
-            $requestData['phone'] = $this->phone;
-        }
-
-        if (!empty($this->userId)) {
-            $requestData['userId'] = $this->userId;
-        }
+        $requestData = $this->userData();
 
         $additionalData = $this->additionalData();
         if (count($additionalData) > 0) {
@@ -156,7 +130,7 @@ class BreinUser
     }
 
     /**
-     * crates the data structure for the addtional data part
+     * crates the data structure for the additional data part
      *
      * @return array
      */
@@ -182,6 +156,13 @@ class BreinUser
 
         if (!empty($this->timezone)) {
             $requestData['timezone'] = $this->timezone;
+        }
+
+        // check if additional base fields are set
+        // should be an associative array
+        foreach ($this->getUserAdditionalMap() as $key => $value) {
+            // echo "\n Key is: " . $key . " Value is: " . $value;
+            $requestData[$key] = $value;
         }
 
         return $requestData;
@@ -431,4 +412,94 @@ class BreinUser
     {
         $this->userId = $userId;
     }
+
+    /**
+     *
+     * @return array for the user level
+     */
+    public function getUserMap()
+    {
+        return $this->userMap;
+    }
+
+    /**
+     * sets an additional map (associative array) for the user level
+     * @param array $userMap
+     */
+    public function setUserMap($userMap)
+    {
+        $this->userMap = $userMap;
+    }
+
+    /**
+     * @return array for the user additional level
+     */
+    public function getUserAdditionalMap()
+    {
+        return $this->userAdditionalMap;
+    }
+
+    /**
+     * sets an associative array for the user additional level
+     * @param array $userAdditionalMap
+     */
+    public function setUserAdditionalMap($userAdditionalMap)
+    {
+        $this->userAdditionalMap = $userAdditionalMap;
+    }
+
+    /**
+     * @return array
+     */
+    public function userData()
+    {
+        $requestData = array();
+
+        if (!empty($this->email)) {
+            $requestData['email'] = $this->email;
+        }
+
+        if (!empty($this->firstName)) {
+            $requestData['firstName'] = $this->firstName;
+        }
+
+        if (!empty($this->lastName)) {
+            $requestData['lastName'] = $this->lastName;
+        }
+
+        if (!empty($this->dateOfBirth)) {
+            $requestData['dateOfBirth'] = $this->dateOfBirth;
+        }
+
+        if (!empty($this->imei)) {
+            $requestData['imei'] = $this->imei;
+        }
+
+        if (!empty($this->deviceId)) {
+            $requestData['deviceId'] = $this->deviceId;
+        }
+
+        if (!empty($this->sessionId)) {
+            $requestData['sessionId'] = $this->sessionId;
+        }
+
+        if (!empty($this->phone)) {
+            $requestData['phone'] = $this->phone;
+        }
+
+        if (!empty($this->userId)) {
+            $requestData['userId'] = $this->userId;
+            return $requestData;
+        }
+
+        // check if additional base fields are set
+        // should be an associative array
+        foreach ($this->getUserMap() as $key => $value) {
+            // echo "\n Key is: " . $key . " Value is: " . $value;
+            $requestData[$key] = $value;
+        }
+
+        return $requestData;
+    }
+
 }

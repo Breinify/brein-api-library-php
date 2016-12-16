@@ -52,11 +52,9 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
     {
         echo "\n=========== START TEST =============\n";
         echo "Running testRecommendationDataRequestComprehensive\n";
-
         // configuration
-        $apiKey = "2514-2506-68B1-45C3-8DCC-B8B8-32D4-XXXX";
-        $secret = "XXXXprunt/kgkoe/3b0uw==";
-        $breinify = new Breinify($apiKey, $secret);
+        $breinify = new Breinify("2514-2506-68B1-45C3-8DCC-B8B8-32D4-9870", "nd8ieprunt/kgkoe/3b0uw==");
+
 
         // user
         $user = new BreinUser;
@@ -111,7 +109,7 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
         echo "Running testRecommendationDataRequest\n";
 
         // configuration
-        $breinify = new Breinify("2514-2506-68B1-45C3-8DCC-B8B8-32D4-XXXX", "XXXXeprunt/kgkoe/3b0uw==");
+        $breinify = new Breinify("2514-2506-68B1-45C3-8DCC-B8B8-32D4-9870", "nd8ieprunt/kgkoe/3b0uw==");
 
         // user
         $user = new BreinUser;
@@ -124,7 +122,7 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
 
         // invoke request
 
-        for ($index = 1; $index < 10; $index++) {
+        for ($index = 1; $index < 2; $index++) {
 
             echo "Invoking: " . $index;
 

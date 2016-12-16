@@ -96,23 +96,29 @@ class BreinBase
     }
 
     /**
-     * @param $user
-     * @throws \Exception
+     * sets the breinify user
+     * @param BreinUser $user
      */
-    public function setUserFromArray($user)
-    {
-        if (is_object($user) && get_class($user) === 'Breinify\API\BreinUser') {
-            /** @noinspection PhpUndefinedMethodInspection */
-            $this->user = $user->data();
-        } else if (is_array($user)) {
-            $this->user = BreinUtil::filterArray($user, BreinUser::$validAttributes);
-        } else {
-            throw new \Exception('Invalid user type: ' . $user);
-        }
-    }
-
     public function setUser($user) {
         $this->user = $user;
+    }
+
+    /**
+     * returns the base map (contains additional fields)
+     * @return array
+     */
+    public function getBaseMap()
+    {
+        return $this->baseMap;
+    }
+
+    /**
+     * sets additional fields within the base structure
+     * @param array $baseMap
+     */
+    public function setBaseMap($baseMap)
+    {
+        $this->baseMap = $baseMap;
     }
 
     /**
@@ -120,8 +126,10 @@ class BreinBase
      */
     public function data()
     {
+        // init an empty array
         $requestData = array();
 
+        // the the base fields
         $requestData['user'] = $this->getUser()->data();
         $requestData['apiKey'] = $this->getApiKey();
         $requestData['unixTimestamp'] = $this->getUnixTimestamp();
@@ -131,6 +139,13 @@ class BreinBase
         $ipAddress = $this->getUser()->getIpAddress();
         if (!empty($ipAddress)) {
             $requestData['ipAddress'] = $ipAddress;
+        }
+
+        // check if additional base fields are set
+        // should be an associative array
+        foreach ($this->getBaseMap() as $key => $value) {
+            // echo "\n Key is: " . $key . " Value is: " . $value;
+            $requestData[$key] = $value;
         }
 
         return $requestData;

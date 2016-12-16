@@ -149,9 +149,9 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
     public function testLoginRequest()
     {
 
-        echo("Running testLoginRequest");
+        echo "Running testLoginRequest";
 
-        $apiKey = "XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8";
+        $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -171,17 +171,91 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $activity->addActivity("login", "food", "message of a blub");
 
         $result = $breinify->sendActivity($activity);
-        echo("result is: " . var_dump($result));
-        echo("=========== END TEST =============");
+        echo "result is: " . var_dump($result);
+        echo "=========== END TEST =============\n";
     }
 
     /**
      * Testcase of login activity request
+     *
+     */
+    public function testLoginRequestWithStream()
+    {
+        echo "Running testLoginRequestWithStream\n";
+
+        $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+
+        $activity = new BreinActivity;
+        $user = new BreinUser;
+        $breinify = new Breinify($apiKey);
+
+        // set different stream engine type
+        // $breinify->setStreamEngineType();
+
+        $user->setFirstName("Toni");
+        $user->setLastName("Maroni");
+        $user->setImei("990000862471854");
+        $user->setDeviceId("9XXXX862YUJK19");
+        $user->setSessionId("Rg3vHJZnehYLjVg7qi3bZjzg");
+        $user->setEmail("toni@maroni.net");
+
+        // additional
+        $user->setReferrer("10.11.12.130");
+
+        $activity->setUser($user);
+        $activity->addActivity("login", "food", "message of a blub");
+
+        $result = $breinify->sendActivity($activity);
+        echo "result is: " . var_dump($result);
+        echo "=========== END TEST =============\n";
+    }
+
+    /**
+     * Testcase of login activity request with additional requests on user
+     * and user additional level
+     *
+     */
+    public function testLoginRequestWithUserAndUserAdditionalMaps()
+    {
+        echo "Running testLoginRequestWithUserAndUserAdditionalMaps\n";
+
+        $apiKey = "41B2-F48C-156A-409A-B465-317F-A0B4-E0E8";
+
+        $activity = new BreinActivity;
+        $user = new BreinUser;
+        $breinify = new Breinify($apiKey);
+
+        $user->setFirstName("Toni");
+        $user->setLastName("Maroni");
+        $user->setImei("990000862471854");
+        $user->setDeviceId("9XXXX862YUJK19");
+        $user->setSessionId("Rg3vHJZnehYLjVg7qi3bZjzg");
+        $user->setEmail("toni@maroni.net");
+
+        $arrayUser = array("key-user-1" => "value-user-1",
+            "key-user-2" => "value-user-2");
+        $user->setUserMap($arrayUser);
+
+        // additional
+        $user->setReferrer("10.11.12.130");
+        $arrayUserAdditional = array("key-user-additional-1" => "value-user-additional-1",
+            "key-user-additionnal-2" => "value-user-additional-2");
+        $user->setUserAdditionalMap($arrayUserAdditional);
+
+        $activity->setUser($user);
+        $activity->addActivity("login", "food", "message of a blub");
+
+        $result = $breinify->sendActivity($activity);
+        echo "result is: " . var_dump($result);
+        echo "=========== END TEST =============\n";
+    }
+
+    /**
+     * Testcase of login activity request with signature
      */
     public function testLoginWithSecretRequest()
     {
-
-        echo("Running testLoginWithSecretRequest");
+        echo "Running testLoginWithSecretRequest\n";
 
         $apiKey = "XXXX-8D28-3408-45A8-8E20-8474-06C0-8548";
         $secret = "XXXXj4k27hbbszzyiqamhg==";
@@ -204,18 +278,16 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $activity->addActivity("login", "food", "message of a blub");
 
         $result = $breinify->sendActivity($activity);
-        echo("result is: " . var_dump($result));
-        echo("=========== END TEST =============");
+        echo "result is: " . var_dump($result);
+        echo "=========== END TEST =============\n";
     }
 
-
     /**
-     * Testcase of login activity request
+     * Testcase of page visit request
      */
     public function testPageVisit()
     {
-
-        echo("Running testPageVisit");
+        echo "Running testPageVisit\n";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -232,7 +304,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
         $activity->addActivity("pageVisit", "food", "message");
 
         // tag map
@@ -245,19 +317,17 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $activity->setTags($tagMap);
 
         $result = $engine->sendActivity($activity);
-        echo("result is: " . var_dump($result));
-        echo("=========== END TEST =============");
+        echo "result is: " . var_dump($result);
+        echo "=========== END TEST =============\n";
     }
 
-
     /**
-     * Testcase of login activity request
-     * */
-
+     * Testcase of login activity request plus additional activity map
+     *
+     */
     public function testPageVisitWithAddtionalActivityMap()
     {
-
-        echo("Running testPageVisit");
+        echo "Running testPageVisitWithAddtionalActivityMap";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
@@ -270,7 +340,7 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $user->setReferrer("10.11.12.130");
 
         $activity->setUser($user);
-        $activity->setApiKey("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $activity->setApiKey("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
         $activity->addActivity("pageVisit", "food", "message");
 
         // tag map
@@ -282,19 +352,22 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $activity->set($actvityMap);
 
         $result = $engine->sendActivity($activity);
-        echo("result is: " . var_dump($result));
-        echo("=========== END TEST =============");
+        echo "result is: " . var_dump($result);
+        echo "=========== END TEST =============\n";
     }
 
-
-    public function testPageVisitWithBreinifyClass()
+    /**
+     * Test case how to use the additional base map
+     *
+     */
+    public function testPageVisitWithBaseMap()
     {
 
-        echo("Running testPageVisitWithBreinifyClass");
+        echo "Running testPageVisitWithBaseMap\n";
 
         $activity = new BreinActivity;
         $user = new BreinUser;
-        $breinify = new Breinify("XXXX-F48C-156A-409A-B465-317F-A0B4-E0E8");
+        $breinify = new Breinify("41B2-F48C-156A-409A-B465-317F-A0B4-E0E8");
 
         $user->setFirstName("Toni");
         $user->setLastName("Maroni");
@@ -305,17 +378,14 @@ class BreinifyActivityTest extends PHPUnit_Framework_TestCase
         $activity->setUser($user);
         $activity->addActivity("pageVisit", "food", "message");
 
-        // tag map
-        $actvityMap = array();
-        $actvityMap["act-1"] = 0.0;
-        $actvityMap["act-2"] = 5;
-        $actvityMap["act-3"] = "0.0";
+        $arrayBase = array("key-base-1" => "value-base-1",
+            "key-base-2" => "value-base-2");
 
-        $activity->set($actvityMap);
+        $activity->setBaseMap($arrayBase);
 
         $result = $breinify->sendActivity($activity);
-        echo("result is: " . var_dump($result));
-        echo("=========== END TEST =============");
+        echo "result is: " . var_dump($result);
+        echo "=========== END TEST =============\n";
     }
 
     /**
