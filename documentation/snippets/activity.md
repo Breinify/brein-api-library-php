@@ -1,9 +1,15 @@
 ```php
-$activity = new \Breinify\API\BreinActivity();
-$activity.setApiKey("772A-47D7-93A3-4EA9-9D73-85B9-479B-16C6");
-$activity.setUser($user);
-$activity.setType("login");
-.
-\Breinify\API\BreinEngine::setType("curl");
-\Breinify\API\BreinEngine::sendActivity($activity);
+> // create a user 
+> $user = new \Breinify\API\BreinUser();
+> $user.setFirstName("Diane");
+> $user.setLastName("Keng");
+> $user.setEmail("diane.keng@breinify.com");
+> 
+> // create an activity
+> $activity = new \Breinify\API\BreinActivity();
+> $activity.setUser($user);
+> $activity->addActivity("login");
+> 
+> // send a request
+> $breinify->sendActivity($activity);
 ```

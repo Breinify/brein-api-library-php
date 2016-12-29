@@ -6,28 +6,88 @@
 Breinify's DigitalDNA API puts dynamic behavior-based, people-driven data right at your fingertips.
 </p>
 
-# brein-api-library-php
 
-## A quick start
-First of all, you have to have a valid api-Key (create an account and get your personal api-key at [Breinify.com]. In this example, we assume you have the following api-key:
+### Step By Step Introduction
+
+#### What is Breinify's DigitialDNA
+
+Breinify's DigitalDNA API puts dynamic behavior-based, people-driven data right at your fingertips. We believe that in many situations, a critical component of a great user experience is personalization. With all the data available on the web it should be easy to provide a unique experience to every visitor, and yet, sometimes you may find yourself wondering why it is so difficult.
+
+Thanks to **Breinify's DigitalDNA** you are now able to adapt your online presence to your visitors needs and **provide a unique experience**. Let's walk step-by-step through a simple example.
+
+## Quick start
+### Step1: Configure the library
+
+In order to use the library you need a valid API-key, which you can get for free at [https://www.breinify.com](https://www.breinify.com). In this example, we assume you have the following api-key:
 
 **772A-47D7-93A3-4EA9-9D73-85B9-479B-16C6**
 
-To communicate with the Brein Engine utilizing the provided PHP library is as easy as this:
 
 ```php
+// configure the library
+$apiKey = "772A-47D7-93A3-4EA9-9D73-85B9-479B-16C6";
+$breinify = new \Breinify\API\Breinify($apiKey);
+
+```
+
+The Breinify object is now configured with a valid configuration.
+
+#### Step 2: Start using the library
+
+##### Placing activity triggers
+
+The engine powering the DigitalDNA API provides two endpoints. The first endpoint is used to inform the engine about the activities performed by visitors of your site. The activities are used to understand the user's current interest and infer the intent. It becomes more and more accurate across different users and verticals as more activities are collected. It should be noted, that any personal information is not stored within the engine, thus each individual's privacy is well protected. The engine understands several different activities performed by a user, e.g., landing, login, search, item selection, or logout.
+
+
+
+```php
+// create a user 
 $user = new \Breinify\API\BreinUser();
 $user.setFirstName("Diane");
 $user.setLastName("Keng");
 $user.setEmail("diane.keng@breinify.com");
 
+// create an activity
 $activity = new \Breinify\API\BreinActivity();
-$activity.setApiKey("772A-47D7-93A3-4EA9-9D73-85B9-479B-16C6");
 $activity.setUser($user);
-$activity.setType("login");
+$activity->addActivity("login");
 
-\Breinify\API\BreinEngine::sendActivity($activity);
+// send a request
+$breinify->sendActivity($activity);
+
 ```
+
+That's it!
+
+##### Placing temporalData triggers
+
+Temporal Intelligence API provides temporal triggers and visualizes patterns
+enabling you to predict a visitor’s dynamic activities. Currently this will
+cover:
+
+* Current Weather
+* Upcoming Holidays
+* Time Zone
+* Regional Events
+
+They can be requested like this:
+
+```php
+// create a user 
+$user = new \Breinify\API\BreinUser();
+$user.setEmail("diane.keng@breinify.com");
+$user->setLocalDateTime("Sun Dec 25 2016 18:15:48 GMT-0800 (PST)");
+$user->setTimezone("America/Los_Angeles");
+
+// create temporalData object and invoke the request
+$temporalData = new \Breinify\API\BreinTemporalData();
+$result = $breinify->temporalData($temporalData);
+
+```
+
+
+
+
 
 ## A more detailed introduction
 
