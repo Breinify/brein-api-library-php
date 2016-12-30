@@ -62,7 +62,7 @@ class BreinActivity extends BreinBase
     {
         $requestData = parent::data();
 
-        // check to see if any additinal activity fields are set
+        // check to see if any additional activity fields are set
         if (!empty($this->get())) {
             $requestData['activity'] = $this->get();
         }
@@ -128,8 +128,8 @@ class BreinActivity extends BreinBase
     public function isValid()
     {
         return !empty($this->getApiKey()) &&
-            !empty($this->activities) && is_array($this->activities) && count($this->activities) > 0 &&
-            !empty($this->getUser()) && is_array($this->getUser()) && count($this->getUser()) > 0;
+            !empty($this->activities) &&
+            !empty($this->getUser()) ;
     }
 
     /**

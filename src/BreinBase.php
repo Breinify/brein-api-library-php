@@ -2,12 +2,11 @@
 
 namespace Breinify\API;
 
-use Breinify\API\libraries\BreinUtil;
 
 class BreinBase
 {
     /**
-     * @var string $apiKey contains the apikey
+     * @var string $apiKey contains the api-key
      */
     private $apiKey = null;
 
@@ -36,6 +35,7 @@ class BreinBase
      */
     public function __construct()
     {
+        $this->user = new BreinUser();
         $this->setUnixTimestamp(null);
     }
 
@@ -80,7 +80,7 @@ class BreinBase
     }
 
     /**
-     * @param long $unixTimestamp
+     * @param $unixTimestamp
      */
     public function setUnixTimestamp($unixTimestamp)
     {

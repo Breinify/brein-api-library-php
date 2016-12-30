@@ -142,7 +142,6 @@ class Breinify
         $recommendation->setApiKey($this->getApiKey());
         $recommendation->setSecret($this->getSecret());
 
-        // $engine = new BreinEngine($this->getEngine());
         $result = $this->getEngine()->recommendation($recommendation);
         return new BreinRecommendationResult($result);
     }
@@ -159,7 +158,6 @@ class Breinify
         $temporalData->setApiKey($this->getApiKey());
         $temporalData->setSecret($this->getSecret());
 
-        // $engine = new BreinEngine($this->getEngine());
         return $this->getEngine()->temporalData($temporalData);
     }
 

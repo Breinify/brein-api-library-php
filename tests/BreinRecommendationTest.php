@@ -7,6 +7,12 @@ use Breinify\API\BreinUser;
 class BreinRecommendationTest extends PHPUnit_Framework_TestCase
 {
 
+    public static $API_KEY = "- HAS TO BE A VALID KEY -";
+
+    public static $API_KEY_WITH_SECRET = "- HAS TO BE A VALID KEY FOR SECRET -";
+
+    public static $SECRET  = "- HAS TO BE A VALID SECRET -";
+
     /**
      * Testcase of recommendation request
      */
@@ -16,7 +22,7 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
         echo "Running testRecommendationDataRequest\n";
 
         // configuration
-        $breinify = new Breinify("XXXX-2506-68B1-45C3-8DCC-B8B8-32D4-9870", "XXXXeprunt/kgkoe/3b0uw==");
+        $breinify = new Breinify(BreinRecommendationTest::$API_KEY_WITH_SECRET, BreinRecommendationTest::$SECRET);
 
         // user
         $user = new BreinUser;
@@ -32,7 +38,6 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
 
         // result
         if ($recResult->getStatus() == 200) {
-
             echo "\n Status from BreinRecommendationResult is: " . $recResult->getStatus();
             echo "\n Message from BreinRecommendationResult is: " . $recResult->getMessage();
 
@@ -52,8 +57,9 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
     {
         echo "\n=========== START TEST =============\n";
         echo "Running testRecommendationDataRequestComprehensive\n";
+
         // configuration
-        $breinify = new Breinify("XXXX-2506-68B1-45C3-8DCC-B8B8-32D4-9870", "XXXXeprunt/kgkoe/3b0uw==");
+        $breinify = new Breinify(BreinRecommendationTest::$API_KEY_WITH_SECRET, BreinRecommendationTest::$SECRET);
 
         // user
         $user = new BreinUser;
@@ -102,13 +108,13 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
     /**
      * Testcase of recommendation request
      */
-    public function testRecommendationDataRequest100Times()
+    public function testRecommendationDataRequestMultipleTimes()
     {
         echo "\n=========== START TEST =============\n";
         echo "Running testRecommendationDataRequest\n";
 
         // configuration
-        $breinify = new Breinify("XXXX-2506-68B1-45C3-8DCC-B8B8-32D4-9870", "XXXXeprunt/kgkoe/3b0uw==");
+        $breinify = new Breinify(BreinRecommendationTest::$API_KEY_WITH_SECRET, BreinRecommendationTest::$SECRET);
 
         // user
         $user = new BreinUser;

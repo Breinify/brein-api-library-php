@@ -29,7 +29,7 @@ class BreinEngine
      * @param $activity
      * @return mixed
      */
-    public static function sendActivity($activity)
+    public static function sendActivity(BreinActivity $activity)
     {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/activity",
             $activity->data());
@@ -39,7 +39,7 @@ class BreinEngine
      * @param $temporalData
      * @return mixed
      */
-    public static function temporalData($temporalData)
+    public static function temporalData(BreinTemporalData $temporalData)
     {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/temporaldata",
             $temporalData->data());
@@ -49,7 +49,7 @@ class BreinEngine
      * @param $recommendation
      * @return mixed
      */
-    public static function recommendation($recommendation)
+    public static function recommendation(BreinRecommendation $recommendation)
     {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/recommendation",
             $recommendation->data());
@@ -59,7 +59,7 @@ class BreinEngine
      * @param $lookUp
      * @return mixed
      */
-    public static function performLookUp($lookUp)
+    public static function performLookUp(BreinLookUp $lookUp)
     {
         return BreinEngine::execute(BreinEngine::$baseUrl . "/lookup", $lookUp);
     }
@@ -140,7 +140,6 @@ class BreinEngine
      */
     private static function doCurl($url, $data)
     {
-
         $data_string = json_encode($data);
         // echo("\njson_encode is: ");
         // echo($data_string);

@@ -14,14 +14,6 @@ class BreinRecommendation extends BreinBase
     private $numberOfRecommendations = 3;
 
     /**
-     * BreinActivity constructor.
-     */
-    public function __construct()
-    {
-        $this->setUnixTimestamp(null);
-    }
-
-    /**
      * @return array
      */
     public function data()
@@ -57,7 +49,7 @@ class BreinRecommendation extends BreinBase
     public function isValid()
     {
         return !empty($this->getApiKey()) &&
-            !empty($this->getUser()) && is_array($this->getUser()) && count($this->getUser()) > 0;
+            !empty($this->getUser());
     }
 
     /**

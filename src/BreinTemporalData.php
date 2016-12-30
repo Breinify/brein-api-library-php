@@ -74,7 +74,7 @@ class BreinTemporalData extends BreinBase
     public function isValid()
     {
         return !empty($this->getApiKey() &&
-            !empty($this->getUser()) && is_array($this->getUser()) && count($this->getUser()) > 0);
+            !empty($this->getUser()));
     }
 
     /**
