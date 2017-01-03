@@ -6,7 +6,6 @@ use Breinify\API\BreinUser;
 
 class BreinRecommendationTest extends PHPUnit_Framework_TestCase
 {
-
     public static $API_KEY = "- HAS TO BE A VALID KEY -";
 
     public static $API_KEY_WITH_SECRET = "- HAS TO BE A VALID KEY FOR SECRET -";
@@ -32,6 +31,46 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
         $recommendation = new BreinRecommendation;
         $recommendation->setUser($user);
         $recommendation->setNumberOfRecommendations(10);
+
+        // invoke request
+        $recResult = $breinify->recommendation($recommendation);
+
+        // result
+        if ($recResult->getStatus() == 200) {
+            echo "\n Status from BreinRecommendationResult is: " . $recResult->getStatus();
+            echo "\n Message from BreinRecommendationResult is: " . $recResult->getMessage();
+
+            // loop over results
+            foreach ($recResult->getResults() as $value) {
+                echo "\n Result is: " . print_r($value, true);
+            }
+
+        }
+
+        echo "\n";
+        echo "=========== END TEST =============";
+    }
+
+    /**
+     * Testcase of recommendation request with category
+     */
+    public function testRecommendationDataRequestWithCategory()
+    {
+        echo "\n=========== START TEST =============\n";
+        echo "Running testRecommendationDataRequestWithCategory\n";
+
+        // configuration
+        $breinify = new Breinify(BreinRecommendationTest::$API_KEY_WITH_SECRET, BreinRecommendationTest::$SECRET);
+
+        // user
+        $user = new BreinUser;
+        $user->setEmail("sola@thedog.com");
+
+        // recommendation
+        $recommendation = new BreinRecommendation;
+        $recommendation->setUser($user);
+        $recommendation->setNumberOfRecommendations(2);
+        $recommendation->setCategory("some category");
 
         // invoke request
         $recResult = $breinify->recommendation($recommendation);

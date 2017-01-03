@@ -1,6 +1,7 @@
 {
   "name": "breinify/brein-engine-api",
   "description": "A PHP library to exchange data through the API of the Brein Engine.",
+  "version": "1.0.2",
   "config": {
     "platform": {
       "php": "5.6.17"

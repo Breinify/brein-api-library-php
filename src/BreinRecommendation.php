@@ -14,6 +14,11 @@ class BreinRecommendation extends BreinBase
     private $numberOfRecommendations = 3;
 
     /**
+     * @var String contains optional category
+     */
+    private $category;
+
+    /**
      * @return array
      */
     public function data()
@@ -25,12 +30,18 @@ class BreinRecommendation extends BreinBase
         }
 
         $recommendationFields = array();
-        $recommendationFields['numRecommendations'] = $this->numberOfRecommendations;
 
+        // optional field(s)
+        if (!empty($this->getCategory())) {
+            $recommendationFields['recommendationCategory'] = $this->getCategory();
+        }
+
+        // mandatory field
+        $recommendationFields['numRecommendations'] = $this->numberOfRecommendations;
         $requestData['recommendation'] = $recommendationFields;
 
-        // echo("content of recommendation-data is: ");
-        // echo(print_r($requestData),1);
+        // echo("\n content of recommendation-data is: \n");
+        // echo(print_r($requestData,1));
 
         return $requestData;
     }
@@ -59,6 +70,22 @@ class BreinRecommendation extends BreinBase
     public function setNumberOfRecommendations($number)
     {
         return $this->numberOfRecommendations = $number;
+    }
+
+    /**
+     * @return String the category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param String $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
     }
 
     /**
