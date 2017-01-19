@@ -52,6 +52,43 @@ class BreinRecommendationTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Testcase of recommendation request
+     */
+    public function testRecommendationDataRequestWithoutUser()
+    {
+        echo "\n=========== START TEST =============\n";
+        echo "Running testRecommendationDataRequestWithoutUser\n";
+
+        // configuration
+        $breinify = new Breinify(BreinRecommendationTest::$API_KEY_WITH_SECRET, BreinRecommendationTest::$SECRET);
+
+        // user
+        $user = new BreinUser;
+
+        // recommendation
+        $recommendation = new BreinRecommendation;
+        $recommendation->setUser($user);
+        $recommendation->setNumberOfRecommendations(10);
+
+        // invoke request
+        $recResult = $breinify->recommendation($recommendation);
+
+        // result
+        if ($recResult->getStatus() == 200) {
+            echo "\n Status from BreinRecommendationResult is: " . $recResult->getStatus();
+            echo "\n Message from BreinRecommendationResult is: " . $recResult->getMessage();
+
+            // loop over results
+            foreach ($recResult->getResults() as $value) {
+                echo "\n Result is: " . print_r($value, true);
+            }
+        }
+
+        echo "\n";
+        echo "=========== END TEST =============";
+    }
+
+    /**
      * Testcase of recommendation request with category
      */
     public function testRecommendationDataRequestWithCategory()
