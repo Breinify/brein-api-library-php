@@ -126,6 +126,11 @@ class BreinUser
             $requestData['additional'] = $additionalData;
         }
 
+        if (count($requestData) == 0) {
+            // create empty object
+            $requestData = json_decode('{}');
+        }
+
         return $requestData;
     }
 
