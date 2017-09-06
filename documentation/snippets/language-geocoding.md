@@ -1,9 +1,4 @@
 >
 ```PHP
-$temporalData = new BreinTemporalData();
->
-$result = $breinify->temporalData($temporalData);
->
-//final BreinTemporalDataResult result = new BreinTemporalData()
-//    .setLocation("NYC")
+// We did not create any example yet
 ```
