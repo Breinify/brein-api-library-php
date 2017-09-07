@@ -1,5 +1,5 @@
 >
-```PHP
+```php
 $user = new BreinUser();
 $user->setSessionId("Rg3vHJZnehYLjVg7qi3bZjzg");
 $user->setEmail("max@sample.net");
